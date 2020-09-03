@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:negoc8r_customer/Pages/ProductList.dart';
+//import 'package:negoc8r_customer/Pages/ProductList.dart';
 
-class name extends StatelessWidget {
-  const name({Key key}) : super(key: key);
+class ProductCatalog extends StatelessWidget {
+  const ProductCatalog({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,9 @@ class name extends StatelessWidget {
                 color: Colors.black,
                 size: 100.0,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/productlist');
+              },
               //_openProductList(context, 'mobile'),
             ),
           ),
@@ -125,7 +127,10 @@ class name extends StatelessWidget {
                 color: Colors.black,
                 size: 100.0,
               ),
-              onPressed: _openProductList(context, 'laptop'),
+              //onPressed: _openProductList(context, 'laptop'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/productlist');
+              },
             ),
           ),
           Container(
@@ -185,7 +190,7 @@ class name extends StatelessWidget {
     );
   }
 
-  _openProductList(BuildContext context, String productType) {
+/*   _openProductList(BuildContext context, String productType) {
     if (productType == 'mobile') {
       try {
         Navigator.pushNamed(context, '/productlist');
@@ -203,5 +208,5 @@ class name extends StatelessWidget {
         }
       }
     }
-  }
+  } */
 }

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "707510133507-e0u2bocrn0bj9nvlsc3mlh15j43lg6jh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.negoc8r.negoc8r_customer",
+            "certificate_hash": "203dc16a1614f4aaebc09096b2ff60f807bff9a2"
+          }
+        },
+        {
           "client_id": "707510133507-5pnclr8bursqv3pi7rldaem0ld3u0lvq.apps.googleusercontent.com",
           "client_type": 3
         }

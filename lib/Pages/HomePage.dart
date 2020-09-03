@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:negoc8r_customer/Pages/ProductList.dart';
 
 //Move this page to product catalog.
 //this page will have customer dashboard with deals and similar product lists
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  //const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Negoc8r'),
+        title: Text('Negoc8r Home'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -38,6 +37,7 @@ class HomePage extends StatelessWidget {
               title: Text('My Account'),
               onTap: () {
                 //open my account and close drawer
+                Navigator.pushNamed(context, 'productcatalog');
                 Navigator.pop(context);
               },
             ),
@@ -72,6 +72,33 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      body: (GridView.count(
+        primary: false,
+        padding: const EdgeInsets.all(20),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        crossAxisCount: 1,
+        children: <Widget>[
+          Container(
+            //color: Colors.blue[200],
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue[200],
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.filter_1,
+                color: Colors.black,
+                size: 100.0,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/productcatalog');
+              },
+              //_openProductList(context, 'mobile'),
+            ),
+          ),
+        ],
+      )),
     );
   }
 }
