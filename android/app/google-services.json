@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "707510133507",
+    "firebase_url": "https://negoc8r-dev.firebaseio.com",
+    "project_id": "negoc8r-dev",
+    "storage_bucket": "negoc8r-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707510133507:android:7006fa3a181b07e4573f36",
+        "android_client_info": {
+          "package_name": "com.negoc8r.negoc8r_customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707510133507-5pnclr8bursqv3pi7rldaem0ld3u0lvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKtBO_42PhOomC4OrLeO4zSsoJ79KHDPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707510133507-5pnclr8bursqv3pi7rldaem0ld3u0lvq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
