@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:negoc8r_customer/Pages/ProductCatalog/ProductPage.dart';
+import 'Pages/ProductCatalog/ProductPage.dart';
 import 'Pages/Customer/AccountHome.dart';
 import 'Pages/Order/OrderPage.dart';
 import 'Pages/ProductCatalog/ProductCatalog.dart';
 import 'Pages/HomePage.dart';
 import 'Pages/WelcomePage.dart';
 import 'Pages/ProductCatalog/ProductList.dart';
+import 'services/GoogleAuthenticationHandler.dart';
 
 //change
 void main() {
@@ -20,6 +21,7 @@ void main() {
         '/productpage': (context) => ProductPage(),
         '/orderpage': (context) => OrderPage(),
         '/customeraccount': (context) => CustomerAccountHome(),
+        '/signindemo': (context) => SignInDemo(),
       },
     ),
   );

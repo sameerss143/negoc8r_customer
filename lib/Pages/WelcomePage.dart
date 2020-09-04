@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:negoc8r_customer/Pages/HomePage.dart';
+import 'package:negoc8r_customer/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class WelcomePage extends StatelessWidget {
   final String _appname = 'Negotiator';
@@ -36,8 +38,8 @@ class WelcomePage extends StatelessWidget {
           SignInButton(
             Buttons.Google,
             onPressed: () {
-              //Navigator.pushNamed(context, '/homepage');
-              _showButtonPressDialog(context, 'Google');
+              Navigator.pushNamed(context, '/homepage');
+              //_showButtonPressDialog(context, 'Google');
             },
           ),
           SignInButton(
@@ -53,11 +55,13 @@ class WelcomePage extends StatelessWidget {
   void _showButtonPressDialog(BuildContext context, String provider) {
     print(provider);
     if (provider == 'Google') {
-      print('inside google if');
-
-      //Navigator.pushNamed(context, '/homepage');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+      //Future<FirebaseUser> user = AuthService().signInWithGoogle();
+      Navigator.pushNamed(context, '/signindemo');
+      //   if (user != null) {
+      //     Navigator.push(
+      //         context, MaterialPageRoute(builder: (context) => HomePage()));
+      //   } else
+      //     print('login failed.');
     }
   }
 }
