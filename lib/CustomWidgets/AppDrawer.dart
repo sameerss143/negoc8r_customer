@@ -29,8 +29,23 @@ class AppDrawer extends StatelessWidget {
 
           //add Greeting, user first name, user thumbnail
           ListTile(
+            title: Text('Home'),
+            onTap: () {
+              //open my account and close drawer
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/homepage');
+/*               Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              ); */
+            },
+          ),
+          ListTile(
             title: Text('My Account'),
             onTap: () {
+              Navigator.pop(context);
               //open my account and close drawer
               Navigator.push(
                 context,
@@ -38,7 +53,6 @@ class AppDrawer extends StatelessWidget {
                   builder: (context) => CustomerAccountHome(),
                 ),
               );
-              Navigator.pop(context);
             },
           ),
           ListTile(
@@ -46,6 +60,7 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               //open my orders
               Navigator.pop(context);
+              Navigator.pushNamed(context, '/orderpage');
             },
           ),
           ListTile(

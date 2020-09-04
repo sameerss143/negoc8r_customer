@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:negoc8r_customer/CustomWidgets/AppDrawer.dart';
 
 //Move this page to product catalog.
 //this page will have customer dashboard with deals and similar product lists
@@ -11,7 +12,8 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Negoc8r Home'),
       ),
-      drawer: Drawer(
+      drawer: AppDrawer(),
+/*       drawer: Drawer(
         child: ListView(
           //padding: EdgeInsets.zero,
           children: <Widget>[
@@ -71,7 +73,7 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
-      ),
+      ), */
       body: (GridView.count(
         primary: false,
         padding: const EdgeInsets.all(20),

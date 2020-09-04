@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:negoc8r_customer/CustomWidgets/AppDrawer.dart';
 //import 'package:negoc8r_customer/Pages/ProductList.dart';
 
 class ProductCatalog extends StatelessWidget {
@@ -7,7 +8,8 @@ class ProductCatalog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: AppDrawer(),
+      /*      drawer: Drawer(
         child: ListView(
           //padding: EdgeInsets.zero,
           children: <Widget>[
@@ -66,7 +68,7 @@ class ProductCatalog extends StatelessWidget {
             )
           ],
         ),
-      ),
+      ), */
       appBar: AppBar(
         title: Text('Negotiator Home Page'),
       ),
