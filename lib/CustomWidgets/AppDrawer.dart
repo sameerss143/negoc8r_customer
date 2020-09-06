@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:negoc8r_customer/Pages/Customer/AccountHome.dart';
+import 'package:negoc8r_customer/services/UserAuth.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key key}) : super(key: key);
@@ -68,6 +69,7 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               //sign out of the app
               Navigator.pop(context);
+              signOutUser();
             },
           ),
           ListTile(
