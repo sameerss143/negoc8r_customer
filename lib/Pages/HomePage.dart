@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:negoc8r_customer/CustomWidgets/AppDrawer.dart';
 
@@ -74,6 +75,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ), */
+
       body: (GridView.count(
         primary: false,
         padding: const EdgeInsets.all(20),
@@ -82,7 +84,42 @@ class HomePage extends StatelessWidget {
         crossAxisCount: 1,
         children: <Widget>[
           Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue[100],
+            ),
+            width: 150,
+            child: CarouselSlider(
+              options: CarouselOptions(
+                height: 150.0,
+                autoPlay: true,
+                autoPlayAnimationDuration: Duration(
+                  milliseconds: 500,
+                ),
+              ),
+              items: <Widget>[
+                Icon(
+                  Icons.accessibility_new,
+                  size: 100.0,
+                ),
+                Icon(
+                  Icons.ac_unit,
+                  size: 100.0,
+                ),
+                Icon(
+                  Icons.airline_seat_flat,
+                  size: 100.0,
+                ),
+                Icon(
+                  Icons.add_alarm,
+                  size: 100.0,
+                ),
+              ],
+            ),
+          ),
+          Container(
             //color: Colors.blue[200],
+            width: 300.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.blue[200],

@@ -41,6 +41,8 @@ dependencies:
   #database
   cloud_firestore: ^0.13.7
   
+  #other
+  carousel_slider: ^2.2.1
   rxdart:
 
 dev_dependencies:
