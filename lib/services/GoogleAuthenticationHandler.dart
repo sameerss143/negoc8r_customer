@@ -38,7 +38,8 @@ class SignInDemoState extends State<SignInDemo> {
         _currentUser = account;
       });
       if (_currentUser != null) {
-        _handleGetContact();
+        Navigator.pushNamed(context, '/homepage');
+        //_handleGetContact();
       }
     });
     _googleSignIn.signInSilently();

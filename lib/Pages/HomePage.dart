@@ -102,9 +102,15 @@ class HomePage extends StatelessWidget {
                   Icons.accessibility_new,
                   size: 100.0,
                 ),
-                Icon(
-                  Icons.ac_unit,
-                  size: 100.0,
+                IconButton(
+                  icon: Icon(
+                    Icons.ac_unit,
+                    size: 100.0,
+                  ),
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    '/productpage',
+                  ),
                 ),
                 Icon(
                   Icons.airline_seat_flat,
