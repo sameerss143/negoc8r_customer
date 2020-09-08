@@ -42,9 +42,13 @@ dependencies:
   #database
   cloud_firestore: ^0.14.0+2
   #^0.13.7
+  #storage
+  firebase_storage: 
   
-  #other
+  #UI widgets
   carousel_slider: ^2.2.1
+  image_slider: ^1.0.2
+
   rxdart:
 
 dev_dependencies:

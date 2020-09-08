@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:negoc8r_customer/Pages/ProductCatalog/ProductPage.dart';
 
 class ProductListPage extends StatefulWidget {
   ProductListPage({Key key}) : super(key: key);
@@ -15,6 +15,9 @@ class _ProductListPageState extends State<ProductListPage> {
     //Firebase.initializeApp();
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Product List'),
+      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('product').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -34,28 +37,33 @@ class _ProductListPageState extends State<ProductListPage> {
           } else {
             return ListView(
               children: snapshot.data.docs.map(
-                (DocumentSnapshot document) {
+                (DocumentSnapshot product) {
                   return
                       //Center(child: Text("Product Name :" + document.data()['name']),
-                      Container(
-                    child: Row(
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(
-                            Icons.ac_unit,
-                            size: 50.0,
-                            color: Colors.blue[200],
-                          ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/productpage');
-                          },
-                        ),
-                        Text("Product Name :" +
-                            document.data()['name'] +
-                            "\nCategory :" +
-                            document.data()['Brand']),
-                      ],
+                      ListTile(
+                    dense: false,
+                    leading: Icon(Icons.phone_android),
+                    trailing: Container(
+                      //color: Colors.green[200],
+                      child: Text('MRP: ' +
+                          product.data()['MRP'].toString() +
+                          '\nBBP: ' +
+                          product.data()['BBP'].toString()),
                     ),
+
+                    title: Text(product.data()['name']),
+                    subtitle: Text(product.data()['Brand']),
+                    isThreeLine: true,
+
+                    //Text(document.data()['BBP']),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductPage(document: product),
+                        ),
+                      );
+                    },
                   );
                 },
               ).toList(),
@@ -66,55 +74,3 @@ class _ProductListPageState extends State<ProductListPage> {
     );
   }
 }
-
-// class ProductList extends StatelessWidget {
-//   //const ProductList({Key key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Negotiator Product List'),
-//       ),
-//       body: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         children: <Widget>[
-//           Container(
-//             child: IconButton(
-//               icon: Icon(
-//                 Icons.ac_unit,
-//                 size: 50.0,
-//                 color: Colors.blue[200],
-//               ),
-//               onPressed: () {
-//                 Navigator.pushNamed(context, '/productpage');
-//               },
-//             ),
-//           ),
-//           // Table(
-//           //   border: TableBorder.all(),
-//           //   children: [
-//           //     TableRow(
-//           //       children: [
-//           //         Text('data')
-//           //         //   Text('Product Name'),
-//           //         //   Text('Product Name'),
-//           //       ],
-//           //     ),
-//           //     // TableRow(
-//           //     //   children: [
-//           //     //     Text('XXX.XX'),
-//           //     //     // Text('Rating: X.X/5'),
-//           //     //   ],
-//           //     // ),
-//           //   ],
-//           //),
-//           Text(
-//             'Product Name\nPrice: XXX.XX\nProdcut Ratings: 4.5/5',
-//             textAlign: TextAlign.left,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'Pages/ProductCatalog/ProductPage.dart';
 import 'Pages/Customer/AccountHome.dart';
 import 'Pages/Order/OrderPage.dart';
 import 'Pages/ProductCatalog/ProductCatalog.dart';
@@ -21,7 +20,7 @@ void main() async {
         '/homepage': (context) => HomePage(),
         '/productlist': (context) => ProductListPage(),
         '/productcatalog': (context) => ProductCatalog(),
-        '/productpage': (context) => ProductPage(),
+        //'/productpage': (context) => ProductPage(DocumentSnapshot),
         '/orderpage': (context) => OrderPage(),
         '/customeraccount': (context) => CustomerAccountHome(),
         '/signindemo': (context) => SignInDemo(),
