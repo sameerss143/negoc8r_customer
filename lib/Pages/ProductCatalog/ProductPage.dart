@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:negoc8r_customer/Pages/Bargain/BargainPage.dart';
+import 'package:negoc8r_customer/Pages/Bargain/BargainOrderPage.dart';
 
 class ProductPage extends StatelessWidget {
   final DocumentSnapshot document;
@@ -166,7 +166,8 @@ return Container(
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BargainPage(document: document),
+                        builder: (context) =>
+                            BargainOrderPage(product: document),
                       ),
                     );
                   },

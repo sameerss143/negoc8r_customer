@@ -24,7 +24,6 @@ class _ProductListPageState extends State<ProductListPage> {
           if (snapshot.hasError) {
             print('Something went wrong');
           }
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Text("Loading");
           }
