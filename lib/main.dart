@@ -8,7 +8,7 @@ import 'Pages/LoginPage.dart';
 import 'Pages/ProductCatalog/ProductListPage.dart';
 import 'services/GoogleAuthenticationHandler.dart';
 
-//change
+//main
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

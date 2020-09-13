@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+//import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:negoc8r_customer/Pages/Bargain/BargainOrderPage.dart';
@@ -10,8 +10,7 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StorageReference imgReference =
-        FirebaseStorage.instance.ref().child("Products");
+    //StorageReference imgReference = FirebaseStorage.instance.ref().child("Products");
 
     List imgList = List.of(document.data()['images']);
     //print(document.data()['images[0]']);
@@ -125,6 +124,9 @@ return Container(
             SizedBox(
               height: 10.0,
             ),
+
+            //location of the customer
+
             //Offer prices by vendors
             Text(
               'Available Prices',
