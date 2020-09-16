@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -21,6 +22,8 @@ class SignInDemo extends StatefulWidget {
 class SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount _currentUser;
   String _contactText;
+  //String _userDisplayName;
+  User _user;
 
   @override
   void initState() {
@@ -30,7 +33,9 @@ class SignInDemoState extends State<SignInDemo> {
         _currentUser = account;
       });
       if (_currentUser != null) {
-        print('user logged in successfully');
+        //print('#user logged in successfully');
+        _user = FirebaseAuth.instance.currentUser;
+        _updateCustomerAccount();
         //_handleGetContact();
       }
     });
@@ -40,7 +45,7 @@ class SignInDemoState extends State<SignInDemo> {
   Future<void> _handleSignIn() async {
     try {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      print('Logged in successfully');
+      print('#Logged in successfully');
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
@@ -53,7 +58,8 @@ class SignInDemoState extends State<SignInDemo> {
       );
 
       // Once signed in, return the UserCredential
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      _user = FirebaseAuth.instance.currentUser;
     } catch (error) {
       print(error);
     }
@@ -75,9 +81,10 @@ class SignInDemoState extends State<SignInDemo> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           ListTile(
-            leading: GoogleUserCircleAvatar(
-              identity: _currentUser,
-            ),
+            leading: Icon(Icons.account_circle),
+            // leading: GoogleUserCircleAvatar(
+            //   identity: _currentUser,
+            // ),
             title: Text(_currentUser.displayName ?? ''),
             subtitle: Text(_currentUser.email ?? ''),
           ),
@@ -125,6 +132,22 @@ class SignInDemoState extends State<SignInDemo> {
           constraints: const BoxConstraints.expand(),
           child: _buildBody(),
         ));
+  }
+
+  Future<void> _updateCustomerAccount() async {
+    print(_currentUser.id);
+    print(_user.uid);
+
+    await FirebaseFirestore.instance.collection('customer').doc(_user.uid).set(
+      {
+        'googleid': _currentUser.id,
+        'name': _currentUser.displayName,
+        'email': _currentUser.email,
+        'photoUrl': _currentUser.photoUrl,
+        'role': 'customer',
+      },
+    );
+    //_currentUser.
   }
 }
 

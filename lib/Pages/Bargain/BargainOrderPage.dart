@@ -1,3 +1,5 @@
+/// Page for creating new bargain order
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -194,11 +196,33 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
 
   void _submitBargainOrder() async {
     try {
-      await FirebaseFirestore.instance.collection('BargainOrder').add(
+      DocumentReference _order =
+          await FirebaseFirestore.instance.collection('allBargainOrder').add(
         {
-          'productId': 'product/' + widget.product.id,
-          //.data()['documentId'], //'/product/wyrBLHYu6uhsvBKSrSra',
-          'userId': _user.uid, //'/customer/yxNVdYqQJsFpI3GlG5MF',
+          'productId': widget.product.id,
+          'userId': _user.uid,
+          'city': _city,
+          'area': _area,
+          'subArea': _subArea,
+          'bargainPrice': double.parse(_myController.text.toString()),
+          'validTill': _validTillDate,
+          'dateInserted': Timestamp.now(),
+          'dateLastModified': Timestamp.now(),
+          'isActive': true,
+          'status': 'active',
+        },
+      );
+      //print('#order: ' + _order.id);
+      //add data to sub collection
+      await FirebaseFirestore.instance
+          .collection('customer')
+          .doc(_user.uid)
+          .collection('myBargainOrder')
+          .doc(_order.id)
+          .set(
+        {
+          'productId': widget.product.id,
+          'productName': widget.product.data()['name'],
           'city': _city,
           'area': _area,
           'subArea': _subArea,
@@ -210,8 +234,8 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
         },
       );
       //return true;
-      Navigator.popUntil(context, (route) => false);
-      Navigator.pushNamed(context, '/orderpage');
+      //Navigator.popUntil(context, (route) => false);
+      Navigator.pushNamed(context, '/mybargainorderpage');
     } catch (e) {
       print(e.toString());
       Text(

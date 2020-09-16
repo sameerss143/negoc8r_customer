@@ -64,6 +64,14 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            title: Text('My Bargains'),
+            onTap: () {
+              //open my orders
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/mybargainorderpage');
+            },
+          ),
+          ListTile(
             title: Text('Sign Out'),
             onTap: () {
               //sign out of the app

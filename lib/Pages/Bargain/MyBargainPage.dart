@@ -1,38 +1,27 @@
-///List of active orders
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class OrderPage extends StatefulWidget {
-  const OrderPage({Key key}) : super(key: key);
+class MyBargainOrderPage extends StatefulWidget {
+  MyBargainOrderPage({Key key}) : super(key: key);
 
   @override
-  _OrderPageState createState() => _OrderPageState();
+  _MyBargainOrderPageState createState() => _MyBargainOrderPageState();
 }
 
-class _OrderPageState extends State<OrderPage> {
+class _MyBargainOrderPageState extends State<MyBargainOrderPage> {
   final User _user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    //User user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text('My Orders'),
+      appBar: new AppBar(
+        title: Text('My Negociations'),
       ),
-      // body: ListView(
-      //   children: <Widget>[
-      //     ListTile(
-      //       leading: Icon(Icons.access_alarm),
-      //     )
-      //   ],
-      // ),
       body: //Text('List of my orders'),
           // ******************streambuilder query is failing. resolve this on priority*************
           StreamBuilder(
-        stream: _fetchOrderList(),
+        stream: _fetchBargainList(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went wrong');
@@ -85,7 +74,7 @@ class _OrderPageState extends State<OrderPage> {
     );
   }
 
-  Stream<QuerySnapshot> _fetchOrderList() {
+  Stream<QuerySnapshot> _fetchBargainList() {
     try {
       print(
         'inside order fetch. uid: ' + _user.uid.toString(),
@@ -98,7 +87,7 @@ class _OrderPageState extends State<OrderPage> {
             'isActive',
             isEqualTo: true,
           )
-          .orderBy('dateModified', descending: true)
+          //.orderBy('dateInserted', descending: true)
           .snapshots();
     } on Exception catch (e) {
       // handle excp

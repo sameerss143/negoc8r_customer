@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:negoc8r_customer/Pages/Bargain/MyBargainPage.dart';
+import 'package:negoc8r_customer/Pages/Customer/CustomerLocation.dart';
 import 'Pages/Customer/AccountHome.dart';
 import 'Pages/Order/OrderPage.dart';
 import 'Pages/ProductCatalog/ProductCatalog.dart';
@@ -20,10 +22,13 @@ void main() async {
         '/homepage': (context) => HomePage(),
         '/productlist': (context) => ProductListPage(),
         '/productcatalog': (context) => ProductCatalog(),
+        '/mybargainorderpage': (context) => MyBargainOrderPage(),
         //'/productpage': (context) => ProductPage(DocumentSnapshot),
         '/orderpage': (context) => OrderPage(),
         '/customeraccount': (context) => CustomerAccountHome(),
+        '/customerlocation': (context) => CustomerLocation(),
         '/signindemo': (context) => SignInDemo(),
+        '/setlocation': (context) => CustomerLocation(),
       },
     ),
   );
