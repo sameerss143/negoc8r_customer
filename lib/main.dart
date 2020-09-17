@@ -20,6 +20,7 @@ void main() async {
       routes: <String, WidgetBuilder>{
         '/': (context) => LoginPage(),
         '/homepage': (context) => HomePage(),
+        '/myaccounthome': (context) => CustomerAccountHome(),
         '/productlist': (context) => ProductListPage(),
         '/productcatalog': (context) => ProductCatalog(),
         '/mybargainorderpage': (context) => MyBargainOrderPage(),

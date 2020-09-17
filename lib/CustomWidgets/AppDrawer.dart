@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:negoc8r_customer/Pages/Customer/AccountHome.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key key}) : super(key: key);
@@ -46,13 +45,15 @@ class AppDrawer extends StatelessWidget {
             title: Text('My Account'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushNamed(context, '/myaccounthome');
               //open my account and close drawer
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CustomerAccountHome(),
-                ),
-              );
+
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => CustomerAccountHome(),
+              //   ),
+              // );
             },
           ),
           ListTile(
