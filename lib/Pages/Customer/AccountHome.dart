@@ -20,7 +20,7 @@ class _CustomerAccountHomeState extends State<CustomerAccountHome> {
 
   @override
   Widget build(BuildContext context) {
-    print('User : ' + _user.uid + _user.displayName);
+    //print('User : ' + _user.uid + _user.displayName);
     return Scaffold(
       appBar: AppBar(
         title: Text('My Account'),

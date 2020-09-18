@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,72 +14,42 @@ class CustomerLocation extends StatefulWidget {
   _CustomerLocationState createState() => _CustomerLocationState();
 
   _readLocationJson() async {
-    //var response = await http.get(_locationFileURL);
-    // //print(response.toString());
-    //var _jsonFile = json.decode(response.body);
-    //print(jsonFile.toString());
-    // for (var city in _jsonFile) {
-    //   //var area = city['area'];
-    //   print(
-    //     '#' + city['id'].toString() + city['city'],
-    //   );
-    //   for (var area in city['area']) {
-    //     print('## ' + area['name']);
-    //     for (var subArea in area['subArea']) {
-    //       print('### ' + subArea['name']);
-    //     }
-    //   }
+    var response = await http.get(_locationFileURL);
+    //print(response.toString());
+    var _jsonFile = json.decode(response.body);
+    print(_jsonFile.toString());
+    for (var city in _jsonFile) {
+      //var area = city['area'];
+      print(
+        '#' + city['id'].toString() + city['city'],
+      );
+      for (var area in city['area']) {
+        print('## ' + area['name']);
+        for (var subArea in area['subArea']) {
+          print('### ' + subArea['name']);
+        }
+      }
 
-    //print('#' + city.toString());
+      print('#' + city.toString());
 
-    //for (city['area'] in city) {
-    //print('#' + area['id'].toString() + area['name']);
-    //}
-    //}
-  }
-}
-
-class Area {
-  int id;
-  String name;
-}
-
-class City {
-  int id;
-  String name;
-  City({
-    this.id,
-    this.name,
-  });
-
-  factory City.fromJson(Map<String, dynamic> json) {
-    return new City(
-      id: json['id'],
-      name: json['name'],
-    );
+      // for (city['area'] in city) {
+      // print('#' + area['id'].toString() + area['name']);
+      // }
+    }
   }
 }
 
 class _CustomerLocationState extends State<CustomerLocation> {
-  List<City> _city = [];
   String _selectedCity;
-  String _locationFileURL =
-      'https://firebasestorage.googleapis.com/v0/b/negoc8r-dev.appspot.com/o/Reference%2FLocations%2Flocations.json?alt=media&token=137b5af3-4322-4a03-bc44-f79f0d521e65';
-
-  _readJsonFile() async {
-    var response = await http.get(_locationFileURL);
-    // //print(response.toString());
-    return JsonDecoder().convert(json.decode(response.body));
-  }
 
   @override
   Widget build(BuildContext context) {
     //final json = JsonDecoder().convert(data);
 
-    var jsonObj = _readJsonFile();
+    //var jsonObj = _readJsonFile();
 
-    _city = (jsonObj).map<City>((item) => City.fromJson(item)).toList();
-    _selectedCity = _city[0].name;
+    //_city = (jsonObj).map<City>((item) => City.fromJson(item)).toList();
+    //_selectedCity = _city[0].name;
 
     return Scaffold(
       appBar: new AppBar(
@@ -91,16 +60,18 @@ class _CustomerLocationState extends State<CustomerLocation> {
           children: [
             //get city list
             DropdownButton(
-                items: _city.map(
-                  (City map) {
-                    return new DropdownMenuItem<String>(
-                      value: map.name,
-                      child: new Text(map.name,
-                          style: new TextStyle(color: Colors.black)),
-                    );
-                  },
-                ).toList(),
-                onChanged: null),
+              items: null, //LocationItems.getCitiies();
+              // _city.map(
+              //   (City map) {
+              //     return new DropdownMenuItem<String>(
+              //       value: map.name,
+              //       child: new Text(map.name,
+              //           style: new TextStyle(color: Colors.black)),
+              //     );
+              //   },
+              // ).toList(),
+              onChanged: null,
+            ),
             DropdownButton(items: null, onChanged: null),
             DropdownButton(items: null, onChanged: null),
             RaisedButton(
