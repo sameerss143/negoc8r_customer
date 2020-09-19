@@ -4,21 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:negoc8r_customer/Pages/Bargain/BargainOrderPage.dart';
 
-class ProductPage extends StatelessWidget {
-  final DocumentSnapshot document;
-  const ProductPage({Key key, @required this.document}) : super(key: key);
+class ProductPage extends StatefulWidget {
+  DocumentSnapshot document;
+  // List<String> _imgList;
+  // String _productName;
+  ProductPage({Key key, @required this.document}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  @override
+  build(BuildContext context) {
     //StorageReference imgReference = FirebaseStorage.instance.ref().child("Products");
 
-    List imgList = List.of(document.data()['images']);
+    List _imgList = List.of(widget.document.data()['images']);
     //print(document.data()['images[0]']);
     //print('SAM: ' + List.of(document.data()['images']).first);
 
+    //List _imgList = List.of(widget.document.data()['images']);
+    String _productName = widget.document.data()['productName'];
+    String _shortDesc = widget.document.data()['shortDescription'];
+    String _longDesc = widget.document.data()['longDescription'];
+    String _mrp = widget.document.data()['MRP'].toString();
+    String _bbp = widget.document.data()['BBP'].toString();
+    String _selectedShopId;
+    bool _shopSelected = false;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(document.data()['name']),
+        title: Text('$_productName'),
       ),
       body: SingleChildScrollView(
         //controller: controller,
@@ -26,44 +42,23 @@ class ProductPage extends StatelessWidget {
           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //product title
           children: <Widget>[
-            // Text(
-            //   document.data()['name'],
-            //   textAlign: TextAlign.left,
-            //   style: TextStyle(
-            //     fontSize: 20.0,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            /*Icon(
-            Icons.ac_unit,
-            size: 150.0,
-            color: Colors.blue[100],
-          ),*/
-/*
-Container(
-            child: CarouselSlider(items: imgList.map((i) {
-              return Builder(builder: (BuildContext context){
-return Container(
-  child: Image.network(i),
-
-              },)
-            ),),),
-                
-                Image.network(i,
-                height: 200.0,
-                width: 200.0,
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                '$_productName',
+                textAlign: TextAlign.left,
               ),
-              },
-              ),
+              padding: EdgeInsets.all(10.0),
+            ),
 
-            ],),
-*/
             CarouselSlider(
-              items: imgList.map(
+              items: _imgList.map(
                 (imgLink) {
-                  return Container(
-                    child: Image.network(imgLink),
-                  );
+                  if (imgLink != null) {
+                    return Container(
+                      child: Image.network(imgLink),
+                    );
+                  }
                 },
               ).toList(),
               options: CarouselOptions(
@@ -72,82 +67,100 @@ return Container(
                 autoPlayInterval: Duration(seconds: 3),
               ),
             ),
-
-            // ImageSlider(
-            //     showTabIndicator: true,
-            //     children: imgList.map(
-            //       (String link) {
-            //         return new ClipRRect(
-            //           borderRadius: BorderRadius.circular(5.0),
-            //           child: Image.network(
-            //             link,
-            //           ),
-            //         );
-            //       },
-            //     ).toList(),
-            //     width: 200,
-            //     height: 200,
-            //     tabController: null),
-
-            // Image.network(
-            //   List.of(document.data()['images']).first,
-            //   height: 200.0,
-            //   width: 200.0,
-            // ),
-            //),
             Container(
               child: Text(
-                document.data()['shortDescription'],
-                textAlign: TextAlign.justify,
+                '$_shortDesc',
+                textAlign: TextAlign.left,
               ),
+              alignment: Alignment.bottomLeft,
               padding: EdgeInsets.all(10.0),
             ),
 
             //MRP And Best Buy prices
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-                  'MRP: ' + document.data()['MRP'].toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    'MRP: $_mrp',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  'Best Buy: ' + document.data()['BBP'].toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    'Best Buy: $_bbp',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(
               height: 10.0,
             ),
 
             //location of the customer
-
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(10.0),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'Location: ' + _getLocation(),
+                  ),
+                  IconButton(
+                    tooltip: 'Change Location',
+                    icon: Icon(Icons.location_on),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
             //Offer prices by vendors
             Text(
-              'Available Prices',
+              'In shops nearby:',
               style: TextStyle(
                 fontSize: 18.0,
               ),
             ),
 
             Table(
+              columnWidths: {
+                0: FractionColumnWidth(0.2),
+                1: FractionColumnWidth(0.4),
+                2: FractionColumnWidth(0.2),
+                3: FractionColumnWidth(0.2),
+              },
+              border: TableBorder.all(),
               children: [
                 TableRow(
                   children: [
-                    Radio(
-                      value: false,
-                      onChanged: null, //() {},
-                      groupValue: 'Seller prices',
-                      toggleable: true,
-                    ),
-                    Text('Seller'),
+                    // Radio(
+                    //   value: false,
+                    //   onChanged: null,
+                    //   groupValue: 'Seller prices',
+                    //   toggleable: true,
+                    // ),
+                    Text(''),
+                    Text('Shop Name'),
                     Text('Offer Price'),
                     Text('Discount')
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    Radio(
+                      toggleable: true,
+                      value: _shopSelected,
+                      onChanged: (value) {
+                        _shopSelected = value;
+                      },
+                      groupValue: _selectedShopId,
+                    ),
+                    Text('Smith appliances'),
+                    Text('195'),
+                    Text('25%'),
                   ],
                 ),
               ],
@@ -169,24 +182,33 @@ return Container(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            BargainOrderPage(product: document),
+                            BargainOrderPage(product: widget.document),
                       ),
                     );
                   },
                 ),
               ],
             ),
+            Text('$_longDesc'),
           ],
         ),
       ),
-      /* bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-        ],
-      ), */
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       title: Text('Home'),
+      //     ),
+      //   ],
+      // ),
     );
+  }
+
+  String _getLocation() {
+    return 'Mumbai > Ghatkopar > Pantnagar';
+  }
+
+  String _updateLocation() {
+    return 'Mumbai > Ghatkopar > Bhatwadi';
   }
 }

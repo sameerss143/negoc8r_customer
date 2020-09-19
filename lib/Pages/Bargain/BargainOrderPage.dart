@@ -17,6 +17,8 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
   //FirebaseAuth _auth = FirebaseAuth.instance;
   User _user = FirebaseAuth.instance.currentUser;
   int _dropdownValue = 1;
+  String _productName;
+  //String _
   String _city = 'Mumbai';
   String _area = 'Ghatkopar';
   String _subArea = 'Pantnagar';
@@ -27,6 +29,8 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    _productName = widget.product.data()['productName'];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Negotiate Price'),
@@ -43,7 +47,7 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                     dense: false,
                     //leading: Icon(Icons.phone_iphone),
                     // insert thumbnail widget.product.data()['img']),
-                    leading: Image.network(widget.product.data()['images'][0]),
+                    //leading: Image.network(widget.product.data()['images'][0]),
                     trailing: Container(
                       //color: Colors.green[200],
                       child: Text('MRP: ' +
@@ -51,8 +55,8 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                           '\nBBP: ' +
                           widget.product.data()['BBP'].toString()),
                     ),
-                    title: Text(widget.product.data()['name']),
-                    subtitle: Text(widget.product.data()['Brand']),
+                    title: Text(widget.product.data()['productName']),
+                    subtitle: Text(widget.product.data()['brand']),
                     isThreeLine: true,
                   ),
                   //Customer location
@@ -200,6 +204,7 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
           await FirebaseFirestore.instance.collection('allBargainOrder').add(
         {
           'productId': widget.product.id,
+          'producyName': _productName,
           'userId': _user.uid,
           'city': _city,
           'area': _area,
@@ -222,7 +227,7 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
           .set(
         {
           'productId': widget.product.id,
-          'productName': widget.product.data()['name'],
+          'productName': _productName,
           'city': _city,
           'area': _area,
           'subArea': _subArea,

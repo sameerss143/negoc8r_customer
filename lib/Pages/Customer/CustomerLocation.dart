@@ -40,7 +40,7 @@ class CustomerLocation extends StatefulWidget {
 }
 
 class _CustomerLocationState extends State<CustomerLocation> {
-  String _selectedCity;
+  //String _selectedCity;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class _CustomerLocationState extends State<CustomerLocation> {
     var response = await http.get(widget._locationFileURL);
     //print(response.toString());
     var _jsonFile = json.decode(response.body);
-    var _jsonObj = JsonDecoder().convert(_jsonFile);
+    //var _jsonObj = JsonDecoder().convert(_jsonFile);
 
     //print(_jsonFile['city'].toString());
     //return widget._jsonFile['city'];

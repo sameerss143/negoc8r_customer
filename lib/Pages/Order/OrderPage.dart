@@ -98,7 +98,10 @@ class _OrderPageState extends State<OrderPage> {
             'isActive',
             isEqualTo: true,
           )
-          .orderBy('dateModified', descending: true)
+          .orderBy(
+            'dateModified',
+            descending: true,
+          )
           .snapshots();
     } on Exception catch (e) {
       // handle excp

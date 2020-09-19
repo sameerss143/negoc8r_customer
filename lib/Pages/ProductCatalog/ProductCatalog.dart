@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:negoc8r_customer/CustomWidgets/AppDrawer.dart';
+import 'package:negoc8r_customer/Pages/ProductCatalog/ProductListPage.dart';
 //import 'package:negoc8r_customer/Pages/ProductList.dart';
 
 class ProductCatalog extends StatelessWidget {
@@ -86,13 +87,28 @@ class ProductCatalog extends StatelessWidget {
               color: Colors.blue[200],
             ),
             child: IconButton(
+              tooltip: 'Mobile & Accessories',
               icon: Icon(
                 Icons.phone_android,
                 color: Colors.black,
                 size: 100.0,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/productlist');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductListPage(
+                      productCategory: "Mobile & Accessories",
+                    ),
+                  ),
+                );
+                // Navigator.pushNamed(
+                //   context,
+                //   '/productlist',
+                //   arguments: <String>{
+                //     'Mobile & Accessories',
+                //   },
+                // );
               },
               //_openProductList(context, 'mobile'),
             ),
@@ -124,6 +140,7 @@ class ProductCatalog extends StatelessWidget {
               color: Colors.blue[200],
             ),
             child: IconButton(
+              tooltip: 'PC & Laptop',
               icon: Icon(
                 Icons.laptop,
                 color: Colors.black,
@@ -131,7 +148,21 @@ class ProductCatalog extends StatelessWidget {
               ),
               //onPressed: _openProductList(context, 'laptop'),
               onPressed: () {
-                Navigator.pushNamed(context, '/productlist');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductListPage(
+                      productCategory: 'PC & Laptop',
+                    ),
+                  ),
+                );
+                // Navigator.pushNamed(
+                //   context,
+                //   '/productlist',
+                //   arguments: <String, String>{
+                //     'productCategory': 'PC & Laptop',
+                //   },
+                // );
               },
             ),
           ),
@@ -141,12 +172,22 @@ class ProductCatalog extends StatelessWidget {
               color: Colors.blue[200],
             ),
             child: IconButton(
+                tooltip: 'Electronics',
                 icon: Icon(
                   Icons.devices,
                   color: Colors.black,
                   size: 100.0,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductListPage(
+                        productCategory: 'Electronics',
+                      ),
+                    ),
+                  );
+                }),
           ),
           Container(
             decoration: BoxDecoration(
@@ -154,12 +195,22 @@ class ProductCatalog extends StatelessWidget {
               color: Colors.blue[200],
             ),
             child: IconButton(
-                icon: Icon(
-                  Icons.camera,
-                  color: Colors.black,
-                  size: 100.0,
-                ),
-                onPressed: () {}),
+              icon: Icon(
+                Icons.camera,
+                color: Colors.black,
+                size: 100.0,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductListPage(
+                      productCategory: 'Camera & Accessories',
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
           Container(
             decoration: BoxDecoration(
@@ -167,12 +218,22 @@ class ProductCatalog extends StatelessWidget {
               color: Colors.blue[200],
             ),
             child: IconButton(
+                tooltip: 'Home and Kitchen Appliances',
                 icon: Icon(
                   Icons.add_shopping_cart,
                   color: Colors.black,
                   size: 100.0,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductListPage(
+                        productCategory: 'Home & Kitchen Appliances',
+                      ),
+                    ),
+                  );
+                }),
           ),
           Container(
             decoration: BoxDecoration(

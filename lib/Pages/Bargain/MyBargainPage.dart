@@ -54,9 +54,7 @@ class _MyBargainOrderPageState extends State<MyBargainOrderPage> {
                       'Order Id: ' + order.id.toString(),
                     ),
                     subtitle: Text('Product: ' + order.data()['productName']),
-
                     isThreeLine: true,
-
                     //onTap: () {},
                     // Navigator.push(
                     //   context,
