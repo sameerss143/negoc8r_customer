@@ -7,25 +7,46 @@
 //   Map<int, String> toJson() => _$CityToJson(this);
 // }
 // @JsonSerializable()
-class City {
-  City(this.id, this.name);
-  final int id;
-  final String name;
+// class CityOld {
+//   CityOld(this.id, this.name);
+//   final int id;
+//   final String name;
 
-  // named constructor
-  City.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'];
-  // method
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-    };
+//   // named constructor
+//   CityOld.fromJson(Map<String, dynamic> json)
+//       : id = json['id'],
+//         name = json['name'];
+//   // method
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'id': id,
+//       'name': name,
+//     };
+//   }
+// }
+
+// class AreaOld {
+//   int id;
+//   String name;
+// }
+class Location {
+  String city;
+  String area;
+  String subArea;
+
+  Location({this.city, this.area, this.subArea});
+
+  void setData({String city, String area, String subArea}) {
+    this.city = city;
+    this.area = area;
+    this.subArea = subArea;
   }
-}
 
-class Area {
-  int id;
-  String name;
+  String getLocationText() {
+    if (this.city != null && this.area != null && this.subArea != null) {
+      return '${this.city} > ${this.area} > ${this.subArea}';
+    } else {
+      return 'Please Select Location.';
+    }
+  }
 }

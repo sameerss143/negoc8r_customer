@@ -135,9 +135,6 @@ class SignInDemoState extends State<SignInDemo> {
   }
 
   Future<void> _updateCustomerAccount() async {
-    print(_currentUser.id);
-    print(_user.uid);
-
     await FirebaseFirestore.instance.collection('customer').doc(_user.uid).set(
       {
         'googleid': _currentUser.id,

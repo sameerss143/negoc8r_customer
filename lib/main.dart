@@ -30,6 +30,7 @@ void main() async {
         '/customerlocation': (context) => CustomerLocation(),
         '/signindemo': (context) => SignInDemo(),
         '/setlocation': (context) => CustomerLocation(),
+        //'/buyproduct': (context) => BuyProduct(),
       },
     ),
   );

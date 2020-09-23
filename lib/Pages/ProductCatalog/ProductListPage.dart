@@ -28,7 +28,10 @@ class _ProductListPageState extends State<ProductListPage> {
             .collection('product')
             .where('category', isEqualTo: widget.productCategory)
             .snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<QuerySnapshot> snapshot,
+        ) {
           if (snapshot.hasError) {
             print('Something went wrong');
           }
@@ -79,7 +82,7 @@ class _ProductListPageState extends State<ProductListPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProductPage(document: product),
+                          builder: (context) => ProductPage(product: product),
                         ),
                       );
                     },
