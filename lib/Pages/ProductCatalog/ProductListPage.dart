@@ -58,10 +58,12 @@ class _ProductListPageState extends State<ProductListPage> {
                       //Center(child: Text("Product Name :" + document.data()['name']),
                       ListTile(
                     dense: false,
-                    leading: _isThumbnailLoaded
-                        ? Image.network(_thumbnail)
-                        : Icon(Icons.network_locked),
-
+                    leading: SizedBox(
+                      width: 50,
+                      child: _isThumbnailLoaded
+                          ? Image.network(_thumbnail)
+                          : Icon(Icons.network_locked),
+                    ),
                     //Icon(Icons.phone_android),
                     trailing: Container(
                       //color: Colors.green[200],

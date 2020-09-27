@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:negoc8r_customer/Pages/Order/OrderConfirmation.dart';
 
@@ -12,6 +13,7 @@ class BuyProduct extends StatefulWidget {
 
 class _BuyProductState extends State<BuyProduct> {
   String _selectedVendor;
+  User _currentUser;
 
   @override
   void initState() {
@@ -19,6 +21,7 @@ class _BuyProductState extends State<BuyProduct> {
       _selectedVendor = null;
     });
     super.initState();
+    this._currentUser = FirebaseAuth.instance.currentUser;
   }
 
   @override
@@ -26,7 +29,12 @@ class _BuyProductState extends State<BuyProduct> {
     String _productId = widget.product.id;
     String _productName = widget.product.data()['productName'];
     String _thumbnail = widget.product.data()['thumbnail'];
+    bool _isThumbnailLoaded = _thumbnail?.isNotEmpty ?? false;
+
     String _mrp = widget.product.data()['MRP'].toString();
+    String _vendorId;
+    String _vendorName;
+    String _offerPrice;
     //print('#Product Id: $_productId and $_selectedProductId');
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
@@ -41,7 +49,10 @@ class _BuyProductState extends State<BuyProduct> {
           Container(
             padding: EdgeInsets.all(10.0),
             child: ListTile(
-              leading: Image.network(_thumbnail),
+              leading: _isThumbnailLoaded
+                  ? Image.network(_thumbnail)
+                  : Icon(Icons.network_locked),
+              //Image.network(_thumbnail),
               title: Text(
                 '$_productName \nQty: 1',
                 style: TextStyle(
@@ -91,12 +102,11 @@ class _BuyProductState extends State<BuyProduct> {
                   return ListView(
                     children: snapshot.data.docs.map(
                       (DocumentSnapshot vendorOffer) {
-                        //String _thumbnail = product.data()['thumbnail'];
-                        //bool _isThumbnailLoaded = _thumbnail?.isNotEmpty ?? false;
-                        //String productId = vendorOffer.data()['productId'];
-                        String _vendorName = vendorOffer.data()['vendorName'];
-                        String _vendorId = vendorOffer.data()['vendorId'];
-                        String _offerPrice =
+                        //_thumbnail = widget.product.data()['thumbnail'];
+                        //_productId = vendorOffer.data()['productId'];
+                        _vendorName = vendorOffer.data()['vendorName'];
+                        _vendorId = vendorOffer.data()['vendorId'];
+                        _offerPrice =
                             vendorOffer.data()['offerPrice'].toString();
                         bool _isSelected;
 
@@ -165,8 +175,44 @@ class _BuyProductState extends State<BuyProduct> {
         onPressed: () {
           //nvigate to next page
           if (_selectedVendor != null) {
-            //nvaigate to order confirmation page
+            //navigate to order confirmation page
             print("Order confirmed");
+            //add to my orders collection
+            FirebaseFirestore.instance
+                .collection('customer')
+                .doc(_currentUser.uid)
+                .collection('myOrder')
+                .add({
+              'productId': _productId,
+              'productName': _productName,
+              'thumbnail': _thumbnail,
+              'vendorId': _vendorId,
+              'vendorName': _vendorName,
+              'MRP': _mrp,
+              'orderPrice': double.parse(_offerPrice),
+              'quantity': 1,
+              'status': 'Confirmed',
+              'isActive': true,
+              'orderDate': Timestamp.now(),
+            });
+            FirebaseFirestore.instance
+                .collection('vendor')
+                .doc(_vendorId)
+                .collection('myOrder')
+                .add({
+              'productId': _productId,
+              'productName': _productName,
+              'thumbnail': _thumbnail,
+              'vendorId': _vendorId,
+              'vendorName': _vendorName,
+              'MRP': _mrp,
+              'orderPrice': _offerPrice,
+              'quantity': 1,
+              'status': 'Confirmed',
+              'isActive': true,
+              'orderDate': Timestamp.now(),
+            });
+
             Navigator.popUntil(context, (route) => false);
             Navigator.push(
                 context,

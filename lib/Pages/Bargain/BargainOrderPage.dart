@@ -69,11 +69,11 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                         fontSize: 20.0,
                       ),
                     ),
-                    hint: Text(
-                      'Select City',
-                      textAlign: TextAlign.center,
-                      //TextAlignVertical.bottom,,
-                    ),
+                    // hint: Text(
+                    //   'Select City',
+                    //   textAlign: TextAlign.center,
+                    //   //TextAlignVertical.bottom,,
+                    // ),
                     items: _getCities(),
                     onChanged: (newValue) {
                       setState(
@@ -96,11 +96,11 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                         fontSize: 20.0,
                       ),
                     ),
-                    hint: Text(
-                      'Select Area',
-                      textAlign: TextAlign.center,
-                      //TextAlignVertical.bottom,,
-                    ),
+                    // hint: Text(
+                    //   'Select Area',
+                    //   textAlign: TextAlign.center,
+                    //   //TextAlignVertical.bottom,,
+                    // ),
                     items: _getAreasInCity(),
                     onChanged: (newValue) {
                       setState(
@@ -123,11 +123,11 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                         fontSize: 20.0,
                       ),
                     ),
-                    hint: Text(
-                      'Select Sub-area',
-                      textAlign: TextAlign.right,
-                      //TextAlignVertical.bottom,,
-                    ),
+                    // hint: Text(
+                    //   'Select Sub-area',
+                    //   textAlign: TextAlign.right,
+                    //   //TextAlignVertical.bottom,,
+                    // ),
                     items: _getSubAreas(),
                     onChanged: (newValue) {
                       setState(
@@ -153,6 +153,7 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                     decoration: const InputDecoration(
                       labelText: 'Bargain Price',
                       labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
                         fontSize: 20.0,
                       ),
                       hintText: 'Enter Bargain Price',
@@ -160,12 +161,19 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                   ),
                   //Active for number of days
                   DropdownButtonFormField(
-                    hint: Text('Valid for days'),
+                    decoration: InputDecoration(
+                      labelText: 'Valid for Days',
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    //hint: Text('Valid for days'),
                     items: [1, 2, 3]
                         .map(
                           (e) => DropdownMenuItem(
                             child: Text(
-                              e.toString(),
+                              '${e.toString()} Day',
                             ),
                             value: e,
                           ),

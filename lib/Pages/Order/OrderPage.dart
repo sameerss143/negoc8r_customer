@@ -49,22 +49,42 @@ class _OrderPageState extends State<OrderPage> {
             return ListView(
               children: snapshot.data.docs.map(
                 (DocumentSnapshot order) {
+                  String _thumbnail = order.data()['thumbnail'];
+                  bool _isThumbnailLoaded = _thumbnail.isNotEmpty;
                   return ListTile(
                     dense: true,
-                    leading: Icon(Icons.phone_android),
+                    leading: _isThumbnailLoaded
+                        ? Image.network(_thumbnail)
+                        : Icon(Icons.network_locked),
+                    //Icon(Icons.phone_android),
                     trailing: Container(
                       //color: Colors.green[200],
-                      child: Text(
-                          'Price: ' + order.data()['bargainPrice'].toString()
+                      child: Text('Price: ' +
+                              order.data()['orderPrice'].toString() +
+                              '\nStatus: ' +
+                              order.data()['status']
+
+                          //DateTime.parse(
+                          //  order.data()['orderDate'].toDate().toString(),
+                          //).toString(),
                           // + '\nValid Till: ' +
                           // new DateTime().millisecondsSinceEpoch(
                           //     order.data()['validTill'])),
                           ),
                     ),
                     title: Text(
-                      'Order Id: ' + order.id.toString(),
+                      'Product: ' + order.data()['productName'],
                     ),
-                    subtitle: Text('Product: ' + order.data()['productName']),
+                    subtitle: Text(
+                      'Order Id: ' +
+                          order.id.toString() +
+                          '\nOrder Date: ' +
+                          order
+                              .data()['orderDate']
+                              .toDate()
+                              .toString()
+                              .substring(0, 10),
+                    ),
 
                     isThreeLine: true,
 
@@ -93,19 +113,21 @@ class _OrderPageState extends State<OrderPage> {
       return FirebaseFirestore.instance
           .collection('customer')
           .doc(_user.uid)
-          .collection('myBargainOrder')
+          .collection('myOrder')
           .where(
             'isActive',
             isEqualTo: true,
           )
-          .orderBy(
-            'dateModified',
-            descending: true,
-          )
+          // .orderBy(
+          //   'orderDate',
+          //   descending: true,
+          // )
+          .limit(10)
           .snapshots();
     } on Exception catch (e) {
       // handle excp
-      print('Order Query Failed.\n' + e.toString());
+      print(e.toString());
+      print('### Order Query Failed.\n' + e.toString());
       return null;
     }
   }

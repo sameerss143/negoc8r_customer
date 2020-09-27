@@ -165,6 +165,7 @@ class _MyLocationState extends State<MyLocation> {
                   context,
                   widget.currentLocation,
                 );
+                setState(() {});
               }, //() => _updateLocation(),
             ),
           ],

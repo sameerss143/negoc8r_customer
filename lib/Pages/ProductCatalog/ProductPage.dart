@@ -21,6 +21,7 @@ class _ProductPageState extends State<ProductPage> {
   //String _currentLocation;
   //Location _currentLocation(city: 'Mumbai', area: 'Ghatkopar', subArea: 'Pantnagar');
   static Location _currentLocation;
+  String _currentLocationTxt;
 
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _ProductPageState extends State<ProductPage> {
       area: 'Ghatkopar',
       subArea: 'Pantnagar',
     );
+    _currentLocationTxt = _currentLocation.getLocationText();
   }
 
   @override
@@ -53,8 +55,9 @@ class _ProductPageState extends State<ProductPage> {
     String _longDesc = widget.product.data()['longDescription'];
     String _mrp = widget.product.data()['MRP'].toString();
     String _bbp = widget.product.data()['BBP'].toString();
-    String _selectedShopId;
-    bool _shopSelected = false;
+    _currentLocationTxt = _currentLocation.getLocationText();
+    //String _selectedShopId;
+    //bool _shopSelected = false;
 
     try {
       print('# $_productId  $_productName');
@@ -133,8 +136,7 @@ class _ProductPageState extends State<ProductPage> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      'Current Location:\n' +
-                          '${_currentLocation.getLocationText()}',
+                      'Current Location:\n' + '$_currentLocationTxt',
                       textAlign: TextAlign.center,
                     ),
                     IconButton(
@@ -145,10 +147,14 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         onPressed: () {
                           //print(_currentLocation.getLocationText());
+                          _changeLocation(_currentLocation);
 
-                          setState(() async {
-                            await _changeLocation(_currentLocation);
-                          });
+                          setState(
+                            () {
+                              _currentLocationTxt =
+                                  _currentLocation.getLocationText();
+                            },
+                          );
                           //print(_currentLocation.getLocationText());
                           // setState((value) {
                           //   _currentLocation = value;
