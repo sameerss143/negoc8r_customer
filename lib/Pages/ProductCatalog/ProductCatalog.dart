@@ -86,31 +86,45 @@ class ProductCatalog extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.blue[200],
             ),
-            child: IconButton(
-              tooltip: 'Mobile & Accessories',
-              icon: Icon(
-                Icons.phone_android,
-                color: Colors.black,
-                size: 100.0,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductListPage(
-                      productCategory: "Mobile & Accessories",
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  tooltip: 'Mobile & Accessories',
+                  icon: Icon(
+                    Icons.phone_android,
+                    color: Colors.black,
+                    size: 80.0,
                   ),
-                );
-                // Navigator.pushNamed(
-                //   context,
-                //   '/productlist',
-                //   arguments: <String>{
-                //     'Mobile & Accessories',
-                //   },
-                // );
-              },
-              //_openProductList(context, 'mobile'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: "Mobile & Accessories",
+                        ),
+                      ),
+                    );
+                    // Navigator.pushNamed(
+                    //   context,
+                    //   '/productlist',
+                    //   arguments: <String>{
+                    //     'Mobile & Accessories',
+                    //   },
+                    // );
+                  },
+                  //_openProductList(context, 'mobile'),
+                ),
+                Text(
+                  'Mobile',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -139,77 +153,45 @@ class ProductCatalog extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.blue[200],
             ),
-            child: IconButton(
-              tooltip: 'PC & Laptop',
-              icon: Icon(
-                Icons.laptop,
-                color: Colors.black,
-                size: 100.0,
-              ),
-              //onPressed: _openProductList(context, 'laptop'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductListPage(
-                      productCategory: 'PC & Laptop',
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  tooltip: 'PC & Laptop',
+                  icon: Icon(
+                    Icons.laptop,
+                    color: Colors.black,
+                    size: 80.0,
                   ),
-                );
-                // Navigator.pushNamed(
-                //   context,
-                //   '/productlist',
-                //   arguments: <String, String>{
-                //     'productCategory': 'PC & Laptop',
-                //   },
-                // );
-              },
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.blue[200],
-            ),
-            child: IconButton(
-                tooltip: 'Electronics',
-                icon: Icon(
-                  Icons.devices,
-                  color: Colors.black,
-                  size: 100.0,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductListPage(
-                        productCategory: 'Electronics',
+                  //onPressed: _openProductList(context, 'laptop'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: 'PC & Laptop',
+                        ),
                       ),
-                    ),
-                  );
-                }),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.blue[200],
-            ),
-            child: IconButton(
-              icon: Icon(
-                Icons.camera,
-                color: Colors.black,
-                size: 100.0,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductListPage(
-                      productCategory: 'Camera & Accessories',
-                    ),
+                    );
+                    // Navigator.pushNamed(
+                    //   context,
+                    //   '/productlist',
+                    //   arguments: <String, String>{
+                    //     'productCategory': 'PC & Laptop',
+                    //   },
+                    // );
+                  },
+                ),
+                Text(
+                  'PC & Laptop',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                );
-              },
+                ),
+              ],
             ),
           ),
           Container(
@@ -217,36 +199,158 @@ class ProductCatalog extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.blue[200],
             ),
-            child: IconButton(
-                tooltip: 'Home and Kitchen Appliances',
-                icon: Icon(
-                  Icons.add_shopping_cart,
-                  color: Colors.black,
-                  size: 100.0,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductListPage(
-                        productCategory: 'Home & Kitchen Appliances',
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  tooltip: 'Electronics',
+                  icon: Icon(
+                    Icons.devices,
+                    color: Colors.black,
+                    size: 80.0,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: 'Electronics',
+                        ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  },
+                ),
+                Text(
+                  'Electronics',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
+          //Camera
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.blue[200],
             ),
-            child: IconButton(
-                icon: Icon(
-                  Icons.shopping_basket,
-                  color: Colors.black,
-                  size: 100.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.camera,
+                    color: Colors.black,
+                    size: 80.0,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: 'Camera & Accessories',
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                onPressed: () {}),
+                Text(
+                  'Camera & Accessories',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //Home and kitchen
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue[200],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  tooltip: 'Home and Kitchen Appliances',
+                  icon: Icon(
+                    Icons.add_shopping_cart,
+                    color: Colors.black,
+                    size: 80.0,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: 'Home & Kitchen Appliances',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                //Text(''),
+                Text(
+                  'Home & Kitchen Appliances',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //Fashion
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue[200],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.shopping_basket,
+                    color: Colors.black,
+                    size: 80.0,
+                    semanticLabel: 'Fashion',
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: 'Fashion',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                // SizedBox(
+                //   height: 5.0,
+                // ),
+                Text(
+                  'Fashion',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       )),

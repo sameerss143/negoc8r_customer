@@ -43,16 +43,20 @@ dependencies:
   cloud_firestore: ^0.14.0+2
   #^0.13.7
   #storage
-  firebase_storage: 
+  firebase_storage: ^4.0.0
   
+  #messaging or notifications
+  firebase_messaging: ^7.0.0
+
   #UI widgets
   carousel_slider: ^2.2.1
   image_slider: ^1.0.2
 
-  rxdart:
+  #rxdart:
 
   #JSON
-  json_annotation: ^2.0.0
+  #json_annotation: ^2.0.0
+  
 
 dev_dependencies:
   flutter_test:

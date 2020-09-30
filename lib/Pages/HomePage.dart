@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:negoc8r_customer/CustomWidgets/AppDrawer.dart';
 
@@ -12,6 +12,17 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Negoc8r Home'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.notifications,
+              //size: 10.0,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/notificationpage');
+            },
+          ),
+        ],
       ),
       drawer: AppDrawer(),
 /*       drawer: Drawer(
@@ -75,75 +86,155 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ), */
-
-      body: (GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(20),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 1,
+      body: GridView.count(
+        padding: const EdgeInsets.all(10.0),
+        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 10.0,
+        crossAxisCount: 2,
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.blue[100],
             ),
-            width: 150,
-            child: CarouselSlider(
-              options: CarouselOptions(
-                height: 150.0,
-                autoPlay: true,
-                autoPlayAnimationDuration: Duration(
-                  milliseconds: 500,
-                ),
-              ),
-              items: <Widget>[
-                Icon(
-                  Icons.accessibility_new,
-                  size: 100.0,
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.ac_unit,
-                    size: 100.0,
-                  ),
-                  onPressed: () => Navigator.pushNamed(
-                    context,
-                    '/productpage',
-                  ),
-                ),
-                Icon(
-                  Icons.airline_seat_flat,
-                  size: 100.0,
-                ),
-                Icon(
-                  Icons.add_alarm,
-                  size: 100.0,
-                ),
-              ],
-            ),
-          ),
-          Container(
+            // width: 200.0,
+            // height: 200.0,
+            //alignment: Alignment.bottomCenter,
             //color: Colors.blue[200],
-            width: 300.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.blue[200],
-            ),
-            child: IconButton(
-              icon: Icon(
-                Icons.filter_1,
-                color: Colors.black,
-                size: 100.0,
-              ),
+            child: FlatButton(
+              padding: EdgeInsets.all(20.0),
               onPressed: () {
                 Navigator.pushNamed(context, '/productcatalog');
               },
-              //_openProductList(context, 'mobile'),
+              child: Column(
+                children: <Widget>[
+                  Icon(
+                    Icons.account_tree,
+                    size: 100.0,
+                    //color: Colors.grey[300],
+                  ),
+                  Text(
+                    'Product Catalog',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue[100],
+            ),
+            // width: 200.0,
+            // height: 200.0,
+            //alignment: Alignment.bottomCenter,
+            //color: Colors.blue[200],
+            child: FlatButton(
+              padding: EdgeInsets.all(20.0),
+              onPressed: () {
+                //Navigator.pushNamed(context, '/productcatalog');
+              },
+              child: Column(
+                children: <Widget>[
+                  Icon(
+                    Icons.disc_full,
+                    size: 100.0,
+                  ),
+                  Text(
+                    'Best Deals',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
-      )),
+      ),
+      //new GridView.custom(gridDelegate: null, childrenDelegate: null),
+      // Column(
+      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //   //crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: <Widget>[
+      //     Container(
+      //       decoration: BoxDecoration(
+      //         borderRadius: BorderRadius.circular(10.0),
+      //         color: Colors.blue[100],
+      //       ),
+      //       // width: 50.0,
+      //       // height: 50.0,
+      //       child: Container(
+      //         // height: 50,
+      //         // width: 100,
+      //         child: CarouselSlider(
+      //           options: CarouselOptions(
+      //             //height: 50.0,
+      //             autoPlay: true,
+      //             autoPlayAnimationDuration: Duration(
+      //               milliseconds: 500,
+      //             ),
+      //           ),
+      //           items: <Widget>[
+      //             Icon(
+      //               Icons.accessibility_new,
+      //               size: 50.0,
+      //             ),
+      //             IconButton(
+      //               icon: Icon(
+      //                 Icons.ac_unit,
+      //                 size: 50.0,
+      //               ),
+      //               onPressed: () {},
+      //             ),
+      //             Icon(
+      //               Icons.airline_seat_flat,
+      //               size: 50.0,
+      //             ),
+      //             Icon(
+      //               Icons.add_alarm,
+      //               size: 50.0,
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //     ),
+      //     GridView.count(
+      //       primary: false,
+      //       padding: const EdgeInsets.all(15.0),
+      //       crossAxisSpacing: 10,
+      //       mainAxisSpacing: 10,
+      //       crossAxisCount: 2,
+      //       children: <Widget>[
+      //         Container(
+      //           //color: Colors.blue[200],
+      //           // width: 100.0,
+      //           // height: 50.0,
+      //           decoration: BoxDecoration(
+      //             borderRadius: BorderRadius.circular(10.0),
+      //             color: Colors.blue[200],
+      //           ),
+      //           child: IconButton(
+      //             icon: Icon(
+      //               Icons.filter_1,
+      //               color: Colors.black,
+      //               size: 50.0,
+      //             ),
+      //             onPressed: () {
+      //               Navigator.pushNamed(context, '/productcatalog');
+      //             },
+      //             //_openProductList(context, 'mobile'),
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

@@ -107,9 +107,9 @@ class _OrderPageState extends State<OrderPage> {
 
   Stream<QuerySnapshot> _fetchOrderList() {
     try {
-      print(
-        'inside order fetch. uid: ' + _user.uid.toString(),
-      );
+      // print(
+      //   'inside order fetch. uid: ' + _user.uid.toString(),
+      // );
       return FirebaseFirestore.instance
           .collection('customer')
           .doc(_user.uid)

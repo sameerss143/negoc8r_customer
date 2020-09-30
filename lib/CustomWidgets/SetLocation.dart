@@ -174,11 +174,11 @@ class _MyLocationState extends State<MyLocation> {
     );
   }
 
-  _updateLocation() {
-    // _city = 'Mumbai';
-    // _area = 'Ghatkopar';
-    // _subArea = 'Bhatwadi';
-  }
+  // _updateLocation() {
+  //   // _city = 'Mumbai';
+  //   // _area = 'Ghatkopar';
+  //   // _subArea = 'Bhatwadi';
+  // }
   // void _updateShopDetails() async {
   //   try {
   //     await FirebaseFirestore.instance

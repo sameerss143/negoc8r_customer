@@ -86,26 +86,26 @@ class _CustomerLocationState extends State<CustomerLocation> {
     );
   }
 
-  Future<DropdownMenuItem<dynamic>> _getCityList() async {
-    var response = await http.get(widget._locationFileURL);
-    //print(response.toString());
-    var _jsonFile = json.decode(response.body);
-    //var _jsonObj = JsonDecoder().convert(_jsonFile);
+  // Future<DropdownMenuItem<dynamic>> _getCityList() async {
+  //   var response = await http.get(widget._locationFileURL);
+  //   //print(response.toString());
+  //   var _jsonFile = json.decode(response.body);
+  //   //var _jsonObj = JsonDecoder().convert(_jsonFile);
 
-    //print(_jsonFile['city'].toString());
-    //return widget._jsonFile['city'];
-    //_city = (_jsonFile).map<var>((item) => Region.fromJson(item)).toList();
+  //   //print(_jsonFile['city'].toString());
+  //   //return widget._jsonFile['city'];
+  //   //_city = (_jsonFile).map<var>((item) => Region.fromJson(item)).toList();
 
-    //for (var city in _jsonFile['city']) {}
-    return _jsonFile['city']
-        .map(
-          (e) => DropdownMenuItem(
-            child: Text(
-              e['city'].toString(),
-            ),
-            value: e,
-          ),
-        )
-        .toList();
-  }
+  //   //for (var city in _jsonFile['city']) {}
+  //   return _jsonFile['city']
+  //       .map(
+  //         (e) => DropdownMenuItem(
+  //           child: Text(
+  //             e['city'].toString(),
+  //           ),
+  //           value: e,
+  //         ),
+  //       )
+  //       .toList();
+  // }
 }

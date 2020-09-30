@@ -233,11 +233,11 @@ class _BuyProductState extends State<BuyProduct> {
     );
   }
 
-  _fetchVendorOffers(String productId) {
-    return FirebaseFirestore.instance
-        .collection('VendorOffer')
-        .where('productId', isEqualTo: widget.product.data()[productId])
-        .limit(5)
-        .snapshots();
-  }
+  // _fetchVendorOffers(String productId) {
+  //   return FirebaseFirestore.instance
+  //       .collection('VendorOffer')
+  //       .where('productId', isEqualTo: widget.product.data()[productId])
+  //       .limit(5)
+  //       .snapshots();
+  // }
 }
