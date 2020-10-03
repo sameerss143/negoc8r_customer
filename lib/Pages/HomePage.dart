@@ -116,7 +116,7 @@ class HomePage extends StatelessWidget {
                   Text(
                     'Product Catalog',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
                   )
