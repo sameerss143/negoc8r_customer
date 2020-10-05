@@ -48,6 +48,8 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                     //leading: Icon(Icons.phone_iphone),
                     // insert thumbnail widget.product.data()['img']),
                     //leading: Image.network(widget.product.data()['images'][0]),
+                    title: Text(widget.product.data()['productName']),
+                    subtitle: Text(widget.product.data()['brand']),
                     trailing: Container(
                       //color: Colors.green[200],
                       child: Text('MRP: ' +
@@ -55,90 +57,123 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
                           '\nBBP: ' +
                           widget.product.data()['BBP'].toString()),
                     ),
-                    title: Text(widget.product.data()['productName']),
-                    subtitle: Text(widget.product.data()['brand']),
                     isThreeLine: true,
+                  ),
+
+                  FutureBuilder(
+                    future: FirebaseFirestore.instance
+                        .collection('customer')
+                        .doc(_user.uid)
+                        .collection('myLocation')
+                        .doc('currentLocation')
+                        .get(),
+                    initialData: Text('Location not set'),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      DocumentSnapshot location = snapshot.data;
+                      String city = location.data()['city'];
+                      String area = location.data()['area'];
+                      String subArea = location.data()['subArea'];
+                      return Text(
+                        'Current Location \n $city > $area > $subArea',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      );
+                    },
+                  ),
+                  IconButton(
+                    tooltip: 'Change Location',
+                    icon: Icon(
+                      Icons.location_on,
+                      color: Colors.blue,
+                    ),
+                    iconSize: 30.0,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/setlocation');
+                    },
                   ),
                   //Customer location
                   //DropdownButton(items: DropdownMenuItem(child: null), onChanged: null),
-                  DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      labelText: 'City',
-                      labelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                    // hint: Text(
-                    //   'Select City',
-                    //   textAlign: TextAlign.center,
-                    //   //TextAlignVertical.bottom,,
-                    // ),
-                    items: _getCities(),
-                    onChanged: (newValue) {
-                      setState(
-                        () {
-                          _area = null;
-                          _subArea = null;
-                          _city = newValue;
-                          _getAreasInCity();
-                          //print('area: $_area');
-                        },
-                      );
-                    },
-                  ),
-                  //select area
-                  DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Area',
-                      labelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                    // hint: Text(
-                    //   'Select Area',
-                    //   textAlign: TextAlign.center,
-                    //   //TextAlignVertical.bottom,,
-                    // ),
-                    items: _getAreasInCity(),
-                    onChanged: (newValue) {
-                      setState(
-                        () {
-                          //if (newValue != null) {
-                          _subArea = null;
-                          _area = newValue;
-                          _getSubAreas();
-                          //}
-                        },
-                      );
-                    },
-                  ),
-                  //select sub-area
-                  DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Sub-area',
-                      labelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                    // hint: Text(
-                    //   'Select Sub-area',
-                    //   textAlign: TextAlign.right,
-                    //   //TextAlignVertical.bottom,,
-                    // ),
-                    items: _getSubAreas(),
-                    onChanged: (newValue) {
-                      setState(
-                        () {
-                          //if (newValue != null) {
-                          _subArea = newValue;
-                          //}
-                        },
-                      );
-                    },
-                  ),
+                  // DropdownButtonFormField(
+                  //   decoration: InputDecoration(
+                  //     labelText: 'City',
+                  //     labelStyle: TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 20.0,
+                  //     ),
+                  //   ),
+                  //   // hint: Text(
+                  //   //   'Select City',
+                  //   //   textAlign: TextAlign.center,
+                  //   //   //TextAlignVertical.bottom,,
+                  //   // ),
+                  //   items: _getCities(),
+                  //   onChanged: (newValue) {
+                  //     setState(
+                  //       () {
+                  //         _area = null;
+                  //         _subArea = null;
+                  //         _city = newValue;
+                  //         _getAreasInCity();
+                  //         //print('area: $_area');
+                  //       },
+                  //     );
+                  //   },
+                  // ),
+                  // //select area
+                  // DropdownButtonFormField(
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Area',
+                  //     labelStyle: TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 20.0,
+                  //     ),
+                  //   ),
+                  //   // hint: Text(
+                  //   //   'Select Area',
+                  //   //   textAlign: TextAlign.center,
+                  //   //   //TextAlignVertical.bottom,,
+                  //   // ),
+                  //   items: _getAreasInCity(),
+                  //   onChanged: (newValue) {
+                  //     setState(
+                  //       () {
+                  //         //if (newValue != null) {
+                  //         _subArea = null;
+                  //         _area = newValue;
+                  //         _getSubAreas();
+                  //         //}
+                  //       },
+                  //     );
+                  //   },
+                  // ),
+                  // //select sub-area
+                  // DropdownButtonFormField(
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Sub-area',
+                  //     labelStyle: TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 20.0,
+                  //     ),
+                  //   ),
+                  //   // hint: Text(
+                  //   //   'Select Sub-area',
+                  //   //   textAlign: TextAlign.right,
+                  //   //   //TextAlignVertical.bottom,,
+                  //   // ),
+                  //   items: _getSubAreas(),
+                  //   onChanged: (newValue) {
+                  //     setState(
+                  //       () {
+                  //         //if (newValue != null) {
+                  //         _subArea = newValue;
+                  //         //}
+                  //       },
+                  //     );
+                  //   },
+                  // ),
+
                   //Customer price
                   TextFormField(
                     validator: (String value) {
@@ -262,115 +297,115 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
   }
 
 //get list of cities
-  List<DropdownMenuItem> _getCities() {
-    return ['Mumbai', 'Pune', 'Thane', 'Navi Mumbai']
-        .map(
-          (e) => DropdownMenuItem(
-            child: Text(
-              e.toString(),
-            ),
-            value: e,
-          ),
-        )
-        .toList();
-  }
+  // List<DropdownMenuItem> _getCities() {
+  //   return ['Mumbai', 'Pune', 'Thane', 'Navi Mumbai']
+  //       .map(
+  //         (e) => DropdownMenuItem(
+  //           child: Text(
+  //             e.toString(),
+  //           ),
+  //           value: e,
+  //         ),
+  //       )
+  //       .toList();
+  // }
 
-  List<DropdownMenuItem> _getAreasInCity() {
-    if (_city == 'Mumbai') {
-      return ['Ghatkopar', 'Mulund', 'Dadar', 'CST', 'Borivli']
-          .map(
-            (e) => DropdownMenuItem(
-              child: Text(e),
-              value: e,
-              //key: Text(e.toString()
-            ),
-          )
-          .toList();
-    }
-    if (_city == 'Navi Mumbai') {
-      return ['Airoli', 'Vashi', 'Panvel']
-          .map(
-            (e) => DropdownMenuItem(
-              child: Text(e),
-              value: e,
-              //key: Text(e.toString()
-            ),
-          )
-          .toList();
-    }
-    if (_city == 'Thane') {
-      return ['Thane', 'Dombivli', 'Kalyan', 'Diva']
-          .map(
-            (e) => DropdownMenuItem(
-              child: Text(e),
-              value: e,
-              //key: Text(e.toString()
-            ),
-          )
-          .toList();
-    }
-    if (_city == 'Pune') {
-      return ['Shivaji Nagar', 'Katraj', 'Sangamwadi', 'Koregaon', 'Bibwewadi']
-          .map(
-            (e) => DropdownMenuItem(
-              child: Text(e),
-              value: e,
-              //key: Text(e.toString()
-            ),
-          )
-          .toList();
-    }
+  // List<DropdownMenuItem> _getAreasInCity() {
+  //   if (_city == 'Mumbai') {
+  //     return ['Ghatkopar', 'Mulund', 'Dadar', 'CST', 'Borivli']
+  //         .map(
+  //           (e) => DropdownMenuItem(
+  //             child: Text(e),
+  //             value: e,
+  //             //key: Text(e.toString()
+  //           ),
+  //         )
+  //         .toList();
+  //   }
+  //   if (_city == 'Navi Mumbai') {
+  //     return ['Airoli', 'Vashi', 'Panvel']
+  //         .map(
+  //           (e) => DropdownMenuItem(
+  //             child: Text(e),
+  //             value: e,
+  //             //key: Text(e.toString()
+  //           ),
+  //         )
+  //         .toList();
+  //   }
+  //   if (_city == 'Thane') {
+  //     return ['Thane', 'Dombivli', 'Kalyan', 'Diva']
+  //         .map(
+  //           (e) => DropdownMenuItem(
+  //             child: Text(e),
+  //             value: e,
+  //             //key: Text(e.toString()
+  //           ),
+  //         )
+  //         .toList();
+  //   }
+  //   if (_city == 'Pune') {
+  //     return ['Shivaji Nagar', 'Katraj', 'Sangamwadi', 'Koregaon', 'Bibwewadi']
+  //         .map(
+  //           (e) => DropdownMenuItem(
+  //             child: Text(e),
+  //             value: e,
+  //             //key: Text(e.toString()
+  //           ),
+  //         )
+  //         .toList();
+  //   }
 
-    //if no city selected
-    return null;
-  }
+  //   //if no city selected
+  //   return null;
+  // }
 
-  //get Sub-area
-  List<DropdownMenuItem> _getSubAreas() {
-    if (_area == 'Ghatkopar') {
-      return ['Pantnagar', 'Garudia', 'Samta nagar', 'Bhatwadi']
-          .map(
-            (e) => DropdownMenuItem(
-              child: Text(e),
-              value: e,
-              //key: Text(e.toString()
-            ),
-          )
-          .toList();
-    }
-    if (_area == 'Airoli') {
-      return ['Sector 5', 'Sector 20', 'Sector 10']
-          .map(
-            (e) => DropdownMenuItem(
-              child: Text(e),
-              value: e,
-              //key: Text(e.toString()
-            ),
-          )
-          .toList();
-    }
-    if (_area == 'Dombivli') {
-      return ['Kopar', 'Nandivli', 'Ramnagar', 'Desale pada', 'Palava']
-          .map(
-            (e) => DropdownMenuItem(
-              child: Text(e),
-              value: e,
-              //key: Text(e.toString()
-            ),
-          )
-          .toList();
-    }
-    if (_area == 'Shivaji Nagar') {
-      return ['Model Colony', 'Fergusson', 'Sakhar Sankul', 'Station']
-          .map(
-            (e) => DropdownMenuItem(
-              child: Text(e),
-              value: e,
-              //key: Text(e.toString()
-            ),
-          )
-          .toList();
-    }
-    return null;
-  }
+  // //get Sub-area
+  // List<DropdownMenuItem> _getSubAreas() {
+  //   if (_area == 'Ghatkopar') {
+  //     return ['Pantnagar', 'Garudia', 'Samta nagar', 'Bhatwadi']
+  //         .map(
+  //           (e) => DropdownMenuItem(
+  //             child: Text(e),
+  //             value: e,
+  //             //key: Text(e.toString()
+  //           ),
+  //         )
+  //         .toList();
+  //   }
+  //   if (_area == 'Airoli') {
+  //     return ['Sector 5', 'Sector 20', 'Sector 10']
+  //         .map(
+  //           (e) => DropdownMenuItem(
+  //             child: Text(e),
+  //             value: e,
+  //             //key: Text(e.toString()
+  //           ),
+  //         )
+  //         .toList();
+  //   }
+  //   if (_area == 'Dombivli') {
+  //     return ['Kopar', 'Nandivli', 'Ramnagar', 'Desale pada', 'Palava']
+  //         .map(
+  //           (e) => DropdownMenuItem(
+  //             child: Text(e),
+  //             value: e,
+  //             //key: Text(e.toString()
+  //           ),
+  //         )
+  //         .toList();
+  //   }
+  //   if (_area == 'Shivaji Nagar') {
+  //     return ['Model Colony', 'Fergusson', 'Sakhar Sankul', 'Station']
+  //         .map(
+  //           (e) => DropdownMenuItem(
+  //             child: Text(e),
+  //             value: e,
+  //             //key: Text(e.toString()
+  //           ),
+  //         )
+  //         .toList();
+  //   }
+  //   return null;
+  // }
 }

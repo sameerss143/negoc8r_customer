@@ -1,5 +1,6 @@
 //import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:http/http.dart' as http;
 
@@ -72,6 +73,8 @@ class _CustomerLocationState extends State<CustomerLocation> {
     //_city = (jsonObj).map<City>((item) => City.fromJson(item)).toList();
     //_selectedCity = _city[0].name;
     //List _jsonFile = _readLocationJson();
+
+    User _user = FirebaseAuth.instance.currentUser;
 
     bool isCitySelected = false;
     if (_selectedCity != null) {
@@ -173,95 +176,33 @@ class _CustomerLocationState extends State<CustomerLocation> {
 
             //select Area
             Container(
-                child: isCitySelected
-                    ? new FutureBuilder(
-                        future: FirebaseFirestore.instance
-                            .collection('refLocation')
-                            .doc(_selectedCity)
-                            .get(),
-                        //.where("id", isEqualTo: "city")
-                        //.snapshots(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          //if (_selectedCity != null) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                            case ConnectionState.none:
-                              return Text('Waiting');
-                              break;
-                            case ConnectionState.done:
-                              if (!snapshot.hasData) {
-                                return Text('No data');
-                              } else {
-                                //fetch city list
-                                print("correct area");
-                                DocumentSnapshot ds = snapshot.data;
-                                List areaList = ds.data()["area"];
-                                if (areaList != null) {
-                                  return DropdownButtonFormField(
-                                    value: _selectedArea,
-                                    items: areaList.map((e) {
-                                      return DropdownMenuItem(
-                                        child: Text(e.toString()),
-                                        value: e.toString(),
-                                      );
-                                    }).toList(),
-                                    onChanged: (newVal) {
-                                      setState(() {
-                                        print(newVal);
-                                        _selectedArea = newVal;
-                                        _selectedSubArea = null;
-                                      });
-                                    },
-                                  );
-                                } else {
-                                  return null;
-                                }
-                              }
-
-                              break;
-                            default:
-                              print("incorrect area");
-                              return Text('No area available');
-                          }
-                          // } else {
-                          //   return Text('No area available');
-                          // }
-                        },
-                      )
-                    : Text('')),
-
-            //subArea
-            Container(
-                child: isAreaSelected
-                    ? new FutureBuilder(
-                        future: FirebaseFirestore.instance
-                            .collection('refLocation')
-                            .doc(_selectedCity)
-                            .collection('area')
-                            .doc(_selectedArea)
-                            .get(),
-                        //.where("id", isEqualTo: "city")
-                        //.snapshots(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          //if (_selectedCity != null) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                            case ConnectionState.none:
-                              return Text('Waiting');
-                              break;
-                            case ConnectionState.done:
-                              if (!snapshot.hasData) {
-                                return Text('No data');
-                              } else {
-                                //fetch city list
-                                print("correct area");
-                                DocumentSnapshot ds = snapshot.data;
-                                List subAreaList = ds.data()["subArea"];
+              child: isCitySelected
+                  ? new FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection('refLocation')
+                          .doc(_selectedCity)
+                          .get(),
+                      //.where("id", isEqualTo: "city")
+                      //.snapshots(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        //if (_selectedCity != null) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                          case ConnectionState.none:
+                            return Text('Waiting');
+                            break;
+                          case ConnectionState.done:
+                            if (!snapshot.hasData) {
+                              return Text('No data');
+                            } else {
+                              //fetch city list
+                              print("correct area");
+                              DocumentSnapshot ds = snapshot.data;
+                              List areaList = ds.data()["area"];
+                              if (areaList != null) {
                                 return DropdownButtonFormField(
-                                  value: _selectedSubArea,
-                                  items: subAreaList.map((e) {
+                                  value: _selectedArea,
+                                  items: areaList.map((e) {
                                     return DropdownMenuItem(
                                       child: Text(e.toString()),
                                       value: e.toString(),
@@ -270,23 +211,85 @@ class _CustomerLocationState extends State<CustomerLocation> {
                                   onChanged: (newVal) {
                                     setState(() {
                                       print(newVal);
-                                      _selectedSubArea = newVal;
-                                      //_selectedSubArea = null;
+                                      _selectedArea = newVal;
+                                      _selectedSubArea = null;
                                     });
                                   },
                                 );
+                              } else {
+                                return null;
                               }
-                              break;
-                            default:
-                              print("incorrect area");
-                              return Text('No area available');
-                          }
-                          // } else {
-                          //   return Text('No area available');
-                          // }
-                        },
-                      )
-                    : Text('')),
+                            }
+
+                            break;
+                          default:
+                            print("incorrect area");
+                            return Text('No area available');
+                        }
+                        // } else {
+                        //   return Text('No area available');
+                        // }
+                      },
+                    )
+                  : Text(''),
+            ),
+
+            //subArea
+            Container(
+              child: isAreaSelected
+                  ? new FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection('refLocation')
+                          .doc(_selectedCity)
+                          .collection('area')
+                          .doc(_selectedArea)
+                          .get(),
+                      //.where("id", isEqualTo: "city")
+                      //.snapshots(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        //if (_selectedCity != null) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                          case ConnectionState.none:
+                            return Text('Waiting');
+                            break;
+                          case ConnectionState.done:
+                            if (!snapshot.hasData) {
+                              return Text('No data');
+                            } else {
+                              //fetch city list
+                              print("correct area");
+                              DocumentSnapshot ds = snapshot.data;
+                              List subAreaList = ds.data()["subArea"];
+                              return DropdownButtonFormField(
+                                value: _selectedSubArea,
+                                items: subAreaList.map((e) {
+                                  return DropdownMenuItem(
+                                    child: Text(e.toString()),
+                                    value: e.toString(),
+                                  );
+                                }).toList(),
+                                onChanged: (newVal) {
+                                  setState(() {
+                                    print(newVal);
+                                    _selectedSubArea = newVal;
+                                    //_selectedSubArea = null;
+                                  });
+                                },
+                              );
+                            }
+                            break;
+                          default:
+                            print("incorrect area");
+                            return Text('No area available');
+                        }
+                        // } else {
+                        //   return Text('No area available');
+                        // }
+                      },
+                    )
+                  : Text(''),
+            ),
 
             //Areas in city selected
 
@@ -337,14 +340,25 @@ class _CustomerLocationState extends State<CustomerLocation> {
             //     }
             //   },
             // ),
-
-            // DropdownButton(items: null, onChanged: null),
-            // DropdownButton(items: null, onChanged: null),
             RaisedButton(
               child: Text(
                 'Update Location',
               ),
-              onPressed: () {},
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection('customer')
+                    .doc(_user.uid)
+                    .collection('myLocation')
+                    .doc('currentLocation')
+                    .set(
+                  {
+                    "city": _selectedCity,
+                    "area": _selectedArea,
+                    "subArea": _selectedSubArea,
+                  },
+                );
+                Navigator.pop(context);
+              },
             ),
           ],
         ),

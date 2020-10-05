@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:negoc8r_customer/CustomWidgets/SetLocation.dart';
-import 'package:negoc8r_customer/Objects/LocationClasses.dart';
+//import 'package:negoc8r_customer/CustomWidgets/SetLocation.dart';
+//import 'package:negoc8r_customer/Objects/LocationClasses.dart';
 import 'package:negoc8r_customer/Pages/Bargain/BargainOrderPage.dart';
 import 'package:negoc8r_customer/Pages/BuyProduct/BuyProduct.dart';
 
@@ -20,18 +21,18 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   //String _currentLocation;
   //Location _currentLocation(city: 'Mumbai', area: 'Ghatkopar', subArea: 'Pantnagar');
-  static Location _currentLocation;
-  String _currentLocationTxt;
+  //static Location _currentLocation;
+  //String _currentLocationTxt;
 
   @override
   void initState() {
     super.initState();
-    _currentLocation = new Location(
-      city: 'Mumbai',
-      area: 'Ghatkopar',
-      subArea: 'Pantnagar',
-    );
-    _currentLocationTxt = _currentLocation.getLocationText();
+    // _currentLocation = new Location(
+    //   city: 'Mumbai',
+    //   area: 'Ghatkopar',
+    //   subArea: 'Pantnagar',
+    // );
+    //_currentLocationTxt = _currentLocation.getLocationText();
   }
 
   @override
@@ -55,7 +56,8 @@ class _ProductPageState extends State<ProductPage> {
     String _longDesc = widget.product.data()['longDescription'];
     String _mrp = widget.product.data()['MRP'].toString();
     String _bbp = widget.product.data()['BBP'].toString();
-    _currentLocationTxt = _currentLocation.getLocationText();
+    //_currentLocationTxt = _currentLocation.getLocationText();
+    User _user = FirebaseAuth.instance.currentUser;
     //String _selectedShopId;
     //bool _shopSelected = false;
 
@@ -71,15 +73,14 @@ class _ProductPageState extends State<ProductPage> {
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //product title
             children: <Widget>[
-              Container(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  '$_productName',
-                  textAlign: TextAlign.left,
-                ),
-                padding: EdgeInsets.all(10.0),
-              ),
-
+              // Container(
+              //   alignment: Alignment.bottomLeft,
+              //   child: Text(
+              //     '$_productName',
+              //     textAlign: TextAlign.left,
+              //   ),
+              //   padding: EdgeInsets.all(5.0),
+              // ),
               new CarouselSlider(
                 items: _imgList.map(
                   (imgLink) {
@@ -125,41 +126,60 @@ class _ProductPageState extends State<ProductPage> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
+              // SizedBox(
+              //   height: 10.0,
+              // ),
 
               //location of the customer
               Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.all(50.0),
+                padding: EdgeInsets.all(5.0),
                 child: Row(
                   children: <Widget>[
-                    Text(
-                      'Current Location:\n' + '$_currentLocationTxt',
-                      textAlign: TextAlign.center,
+                    // Text(
+                    //   'Current Location:\n' + '$_currentLocationTxt',
+                    //   textAlign: TextAlign.center,
+                    // ),
+
+                    FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection('customer')
+                          .doc(_user.uid)
+                          .collection('myLocation')
+                          .doc('currentLocation')
+                          .get(),
+                      initialData: Text('Location not set'),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        DocumentSnapshot location = snapshot.data;
+                        String city = location.data()['city'];
+                        String area = location.data()['area'];
+                        String subArea = location.data()['subArea'];
+                        return Text('Location: $city > $area > $subArea');
+                      },
                     ),
                     IconButton(
-                        tooltip: 'Change Location',
-                        icon: Icon(
-                          Icons.location_on,
-                          color: Colors.blue,
-                        ),
-                        onPressed: () {
-                          //print(_currentLocation.getLocationText());
-                          _changeLocation(_currentLocation);
+                      tooltip: 'Change Location',
+                      icon: Icon(
+                        Icons.location_on,
+                        color: Colors.blue,
+                      ),
+                      onPressed: () {
+                        //print(_currentLocation.getLocationText());
+                        //_changeLocation(_currentLocation);
+                        Navigator.pushNamed(context, '/setlocation');
 
-                          setState(
-                            () {
-                              _currentLocationTxt =
-                                  _currentLocation.getLocationText();
-                            },
-                          );
-                          //print(_currentLocation.getLocationText());
-                          // setState((value) {
-                          //   _currentLocation = value;
-                          // });
-                        }),
+                        // setState(
+                        //   () {
+                        //     _currentLocationTxt =
+                        //         _currentLocation.getLocationText();
+                        //   },
+                        // );
+                        //print(_currentLocation.getLocationText());
+                        // setState((value) {
+                        //   _currentLocation = value;
+                        // });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -170,6 +190,24 @@ class _ProductPageState extends State<ProductPage> {
                   fontSize: 18.0,
                 ),
               ),
+
+              // FutureBuilder(
+              //   future: FirebaseFirestore.instance
+              //       .collection('VendorOffer')
+              //       //.doc()
+              //       .snapshots()
+              //       .where('productId', isEqualTo: _productId)
+              //       .orderBy('offerPrice')
+              //       .limit(5),
+              //   initialData: Text('Location not set'),
+              //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+              //     DocumentSnapshot location = snapshot.data;
+              //     String city = location.data()['city'];
+              //     String area = location.data()['area'];
+              //     String subArea = location.data()['subArea'];
+              //     return Text('Location: $city > $area > $subArea');
+              //   },
+              // ),
               //Offer prices by vendors
               // StreamBuilder<Object>(
               //   stream: FirebaseFirestore.instance
@@ -295,7 +333,7 @@ class _ProductPageState extends State<ProductPage> {
               //   ],
               // ),
               SizedBox(
-                width: 20.0,
+                height: 10.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -354,26 +392,26 @@ class _ProductPageState extends State<ProductPage> {
   //   );
   // }
 
-  _changeLocation(Location currentLocation) async {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return Container(
-          height: MediaQuery.of(context).size.height * .80,
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Change Location: ',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              new MyLocation(
-                currentLocation: _currentLocation,
-              ),
-            ],
-          ),
-        );
-      },
-    );
-    // _currentLocation = 'Mumbai > Ghatkopar > Bhatwadi';
-  }
+  // _changeLocation(Location currentLocation) async {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     builder: (BuildContext bc) {
+  //       return Container(
+  //         height: MediaQuery.of(context).size.height * .80,
+  //         child: Column(
+  //           children: <Widget>[
+  //             Text(
+  //               'Change Location: ',
+  //               style: TextStyle(fontSize: 16.0),
+  //             ),
+  //             // new MyLocation(
+  //             //   currentLocation: _currentLocation,
+  //             // ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  //   // _currentLocation = 'Mumbai > Ghatkopar > Bhatwadi';
+  // }
 }
