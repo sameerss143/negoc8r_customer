@@ -23,8 +23,8 @@ void main() async {
     MaterialApp(
       //home: WelcomePage(),
       routes: <String, WidgetBuilder>{
-        '/': (context) => LoginPage(),
-        '/homepage': (context) => HomePage(),
+        //'/': (context) => LoginPage(),
+        '/': (context) => HomePage(),
         '/myaccounthome': (context) => CustomerAccountHome(),
         '/productlist': (context) => ProductListPage(),
         '/productcatalog': (context) => ProductCatalog(),

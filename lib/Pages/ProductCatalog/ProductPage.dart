@@ -56,6 +56,11 @@ class _ProductPageState extends State<ProductPage> {
     String _longDesc = widget.product.data()['longDescription'];
     String _mrp = widget.product.data()['MRP'].toString();
     String _bbp = widget.product.data()['BBP'].toString();
+    String _city;
+    String _area;
+    String _subArea;
+
+
     //_currentLocationTxt = _currentLocation.getLocationText();
     User _user = FirebaseAuth.instance.currentUser;
     //String _selectedShopId;
@@ -144,17 +149,17 @@ class _ProductPageState extends State<ProductPage> {
                     FutureBuilder(
                       future: FirebaseFirestore.instance
                           .collection('customer')
-                          .doc(_user.uid)
+                          .doc("XVd5BdS8kOMFbLLFgy2H13CPLir2")
                           .collection('myLocation')
                           .doc('currentLocation')
                           .get(),
                       initialData: Text('Location not set'),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         DocumentSnapshot location = snapshot.data;
-                        String city = location.data()['city'];
-                        String area = location.data()['area'];
-                        String subArea = location.data()['subArea'];
-                        return Text('Location: $city > $area > $subArea');
+                        _city = location.data()['city'];
+                        _area = location.data()['area'];
+                        _subArea = location.data()['subArea'];
+                        return Text('Location: $_city > $_area > $_subArea');
                       },
                     ),
                     IconButton(

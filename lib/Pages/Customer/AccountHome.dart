@@ -49,25 +49,21 @@ class _CustomerAccountHomeState extends State<CustomerAccountHome> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(
-                  _user.photoURL,
-                  alignment: Alignment.topRight,
-                ),
                 SizedBox(height: 20.0),
                 Icon(Icons.account_box),
-                Text('Name: ' + _user.displayName),
+                Text('Name: ' + "Rekha"),
                 SizedBox(height: 20.0),
                 Icon(Icons.email),
-                Text('Email: ' + _user.email),
+                Text('Email: ' + "Kharu225@gmail.com"),
                 SizedBox(height: 20.0),
                 Icon(Icons.phone),
-                Text('Phone: ' + _user.phoneNumber.toString()),
+                Text('Phone: ' + "123"),
                 SizedBox(height: 20.0),
                 Icon(Icons.location_on),
                 FutureBuilder(
                   future: FirebaseFirestore.instance
                       .collection('customer')
-                      .doc(_user.uid)
+                      .doc("XVd5BdS8kOMFbLLFgy2H13CPLir2")
                       .collection('myLocation')
                       .doc('currentLocation')
                       .get(),
@@ -105,7 +101,7 @@ class _CustomerAccountHomeState extends State<CustomerAccountHome> {
   getLocation(Location currentLocation) async {
     DocumentSnapshot myLocation = await FirebaseFirestore.instance
         .collection('customer')
-        .doc(_user.uid)
+        .doc("XVd5BdS8kOMFbLLFgy2H13CPLir2")
         .collection('myLocation')
         .doc('currentLocation')
         .get();
