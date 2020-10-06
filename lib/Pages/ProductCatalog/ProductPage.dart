@@ -154,7 +154,14 @@ class _ProductPageState extends State<ProductPage> {
                         String city = location.data()['city'];
                         String area = location.data()['area'];
                         String subArea = location.data()['subArea'];
-                        return Text('Location: $city > $area > $subArea');
+                        if (city != null && area != null && subArea != null) {
+                          return Text('Location: $city > $area > $subArea');
+                        } else {
+                          return Text(
+                            'Please set the location.',
+                            style: TextStyle(color: Colors.red),
+                          );
+                        }
                       },
                     ),
                     IconButton(

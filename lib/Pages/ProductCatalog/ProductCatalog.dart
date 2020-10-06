@@ -71,14 +71,14 @@ class ProductCatalog extends StatelessWidget {
         ),
       ), */
       appBar: AppBar(
-        title: Text('Negotiator Home Page'),
+        title: Text('NegoC8r'),
       ),
       body: (GridView.count(
         primary: false,
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        crossAxisCount: 2,
+        crossAxisCount: 3,
         children: <Widget>[
           Container(
             //color: Colors.blue[200],
@@ -95,7 +95,7 @@ class ProductCatalog extends StatelessWidget {
                   icon: Icon(
                     Icons.phone_android,
                     color: Colors.black,
-                    size: 80.0,
+                    size: 60.0,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -120,7 +120,7 @@ class ProductCatalog extends StatelessWidget {
                   'Mobile',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -162,7 +162,7 @@ class ProductCatalog extends StatelessWidget {
                   icon: Icon(
                     Icons.laptop,
                     color: Colors.black,
-                    size: 80.0,
+                    size: 60.0,
                   ),
                   //onPressed: _openProductList(context, 'laptop'),
                   onPressed: () {
@@ -187,7 +187,7 @@ class ProductCatalog extends StatelessWidget {
                   'PC & Laptop',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -208,7 +208,7 @@ class ProductCatalog extends StatelessWidget {
                   icon: Icon(
                     Icons.devices,
                     color: Colors.black,
-                    size: 80.0,
+                    size: 60.0,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -225,7 +225,7 @@ class ProductCatalog extends StatelessWidget {
                   'Electronics',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -246,7 +246,7 @@ class ProductCatalog extends StatelessWidget {
                   icon: Icon(
                     Icons.camera,
                     color: Colors.black,
-                    size: 80.0,
+                    size: 60.0,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -263,7 +263,7 @@ class ProductCatalog extends StatelessWidget {
                   'Camera & Accessories',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -285,7 +285,7 @@ class ProductCatalog extends StatelessWidget {
                   icon: Icon(
                     Icons.add_shopping_cart,
                     color: Colors.black,
-                    size: 80.0,
+                    size: 60.0,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -303,7 +303,7 @@ class ProductCatalog extends StatelessWidget {
                   'Home & Kitchen Appliances',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -324,7 +324,7 @@ class ProductCatalog extends StatelessWidget {
                   icon: Icon(
                     Icons.shopping_basket,
                     color: Colors.black,
-                    size: 80.0,
+                    size: 60.0,
                     semanticLabel: 'Fashion',
                   ),
                   onPressed: () {
@@ -345,7 +345,133 @@ class ProductCatalog extends StatelessWidget {
                   'Fashion',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //Sports
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue[200],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.sports_baseball,
+                    color: Colors.black,
+                    size: 60.0,
+                    semanticLabel: 'Sports',
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: 'Sports',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                // SizedBox(
+                //   height: 5.0,
+                // ),
+                Text(
+                  'Sports',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //Devotional
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue[200],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.notifications,
+                    color: Colors.black,
+                    size: 60.0,
+                    semanticLabel: 'Devotional',
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: 'Devotional',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                // SizedBox(
+                //   height: 5.0,
+                // ),
+                Text(
+                  'Devotional',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //pet supplies
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue[200],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.emoji_nature,
+                    color: Colors.black,
+                    size: 60.0,
+                    semanticLabel: 'Pet Supplies',
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductListPage(
+                          productCategory: 'Pet Supplies',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                // SizedBox(
+                //   height: 5.0,
+                // ),
+                Text(
+                  'Pet Supplies',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
