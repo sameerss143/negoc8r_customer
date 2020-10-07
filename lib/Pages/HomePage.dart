@@ -19,7 +19,11 @@ class HomePage extends StatelessWidget {
               //size: 10.0,
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/notificationpage');
+              Navigator.pushNamed(
+                context,
+                '/notificationpage',
+              );
+              //showAboutDialog(context: null);
             },
           ),
         ],
@@ -110,7 +114,7 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   Icon(
                     Icons.account_tree,
-                    size: 100.0,
+                    size: 80.0,
                     //color: Colors.grey[300],
                   ),
                   Text(
@@ -124,6 +128,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          //Best Deals
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
@@ -141,8 +146,8 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Icon(
-                    Icons.disc_full,
-                    size: 100.0,
+                    Icons.label_outline_rounded,
+                    size: 80.0,
                   ),
                   Text(
                     'Best Deals',
@@ -154,6 +159,63 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          InkWell(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.blue[100],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.list,
+                    size: 80.0,
+                  ),
+                  Text(
+                    'My Orders',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //),
+            onTap: () {
+              Navigator.pushNamed(context, '/orderpage');
+            },
+          ),
+          //My Negociations
+          InkWell(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.blue[100],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.list_alt,
+                    size: 80.0,
+                  ),
+                  Text(
+                    'My Negociations',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //),
+            onTap: () {
+              Navigator.pushNamed(context, '/mybargainorderpage');
+            },
           ),
         ],
       ),

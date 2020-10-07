@@ -141,6 +141,7 @@ class _ProductPageState extends State<ProductPage> {
                     //   textAlign: TextAlign.center,
                     // ),
 
+                    //Location
                     FutureBuilder(
                       future: FirebaseFirestore.instance
                           .collection('customer')
@@ -150,17 +151,38 @@ class _ProductPageState extends State<ProductPage> {
                           .get(),
                       initialData: Text('Location not set'),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        DocumentSnapshot location = snapshot.data;
-                        String city = location.data()['city'];
-                        String area = location.data()['area'];
-                        String subArea = location.data()['subArea'];
-                        if (city != null && area != null && subArea != null) {
-                          return Text('Location: $city > $area > $subArea');
-                        } else {
-                          return Text(
-                            'Please set the location.',
-                            style: TextStyle(color: Colors.red),
-                          );
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                          case ConnectionState.none:
+                          case ConnectionState.active:
+                            return Text('Waiting');
+                            break;
+                          case ConnectionState.done:
+                            if (snapshot.hasData) {
+                              DocumentSnapshot location = snapshot.data;
+                              if (location.data() != null) {
+                                String city = location.data()['city'];
+                                String area = location.data()['area'];
+                                String subArea = location.data()['subArea'];
+                                if (city != null &&
+                                    area != null &&
+                                    subArea != null) {
+                                  return Text(
+                                      'Location: $city > $area > $subArea');
+                                }
+                              } else {
+                                return Text(
+                                  'Please set the location.',
+                                  style: TextStyle(color: Colors.red),
+                                );
+                              }
+                            }
+                            break;
+                          default:
+                            return Text(
+                              'Please set the location.',
+                              style: TextStyle(color: Colors.red),
+                            );
                         }
                       },
                     ),

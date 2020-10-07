@@ -57,13 +57,16 @@ class _CustomerAccountHomeState extends State<CustomerAccountHome> {
                 Icon(Icons.account_box),
                 Text('Name: ' + _user.displayName),
                 SizedBox(height: 20.0),
+                //email
                 Icon(Icons.email),
                 Text('Email: ' + _user.email),
                 SizedBox(height: 20.0),
+                //Phone
                 Icon(Icons.phone),
                 Text('Phone: ' + _user.phoneNumber.toString()),
                 SizedBox(height: 20.0),
                 Icon(Icons.location_on),
+                //Location
                 FutureBuilder(
                   future: FirebaseFirestore.instance
                       .collection('customer')
@@ -73,17 +76,42 @@ class _CustomerAccountHomeState extends State<CustomerAccountHome> {
                       .get(),
                   initialData: Text('Location not set'),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    DocumentSnapshot location = snapshot.data;
-                    String city = location.data()['city'];
-                    String area = location.data()['area'];
-                    String subArea = location.data()['subArea'];
-                    if (city != null && area != null && subArea != null) {
-                      return Text('Location: $city > $area > $subArea');
-                    } else {
-                      return Text(
-                        'Please set the location.',
-                        style: TextStyle(color: Colors.red),
-                      );
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                      case ConnectionState.none:
+                      case ConnectionState.active:
+                        return Text('Waiting');
+                        break;
+                      case ConnectionState.done:
+                        if (snapshot.hasData) {
+                          DocumentSnapshot location = snapshot.data;
+                          if (location.data() != null) {
+                            String city = location.data()['city'];
+                            String area = location.data()['area'];
+                            String subArea = location.data()['subArea'];
+                            if (city != null &&
+                                area != null &&
+                                subArea != null) {
+                              return Text(
+                                'Location: $city > $area > $subArea',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                ),
+                              );
+                            }
+                          } else {
+                            return Text(
+                              'Please set the location.',
+                              style: TextStyle(color: Colors.red),
+                            );
+                          }
+                        }
+                        break;
+                      default:
+                        return Text(
+                          'Please set the location.',
+                          style: TextStyle(color: Colors.red),
+                        );
                     }
                   },
                 ),
