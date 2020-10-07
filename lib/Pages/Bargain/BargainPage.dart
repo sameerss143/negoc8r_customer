@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:negoc8r_customer/Pages/Bargain/BargainOrderPage.dart';
@@ -12,7 +13,7 @@ class BargainPage extends StatefulWidget {
 }
 
 class _BargainPageState extends State<BargainPage> {
-  @override
+  @override 
   void initState() {
     super.initState();
   }
@@ -21,6 +22,7 @@ class _BargainPageState extends State<BargainPage> {
   Widget build(BuildContext context) {
     String _productName = widget.order.data()['productName'];
     String _city = widget.order.data()['city'];
+    String _thumbnail = widget.order.data()['thumbnail'];
     String _area = widget.order.data()['area'];
     String _subArea = widget.order.data()['subArea'];
     double _MRP = widget.order.data()['MRP'];
@@ -28,8 +30,7 @@ class _BargainPageState extends State<BargainPage> {
     String _shortDesc = widget.order.data()['shortDescription'];
     String _orderId = widget.order.id;
     String _bargainPrice = widget.order.data()['bargainPrice'].toString();
-    List _imgList = List.of(widget.order.data()['images']);
-
+  
     try {
       return Scaffold(
         appBar: AppBar(
@@ -38,22 +39,7 @@ class _BargainPageState extends State<BargainPage> {
         body: new SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              new CarouselSlider(
-                items: _imgList.map(
-                  (imgLink) {
-                    if (imgLink != null) {
-                      return Container(
-                        child: Image.network(imgLink),
-                      );
-                    }
-                  },
-                ).toList(),
-                options: CarouselOptions(
-                  height: 200,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 5),
-                ),
-              ),
+
               Container(
                 child: Text(
                   '$_shortDesc',
@@ -68,26 +54,18 @@ class _BargainPageState extends State<BargainPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
+                    Image.network(_thumbnail, width:200, height:150),
+                  
                     Text(
-                      'MRP: $_MRP',
+                      'MRP: $_MRP \n Best Buy: $_BBP \n Requested Price: $_bargainPrice',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    Text(
-                      'Best Buy: $_BBP',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Requested Price: $_bargainPrice',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    ),                   
                   ],
+                  
                 ),
+                
               ),
                  //location of the customer
               Container(
@@ -96,7 +74,7 @@ class _BargainPageState extends State<BargainPage> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      'Location set:\n' + '$_city > $_area > $_subArea',
+                      'Location set:\n' + '$city > $area > $subArea',
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -124,18 +102,11 @@ class _BargainPageState extends State<BargainPage> {
                       );
                     },
                   ),
-                  // RaisedButton(
-                  //   child: Text('Negotiate'),
-                  //   onPressed: () {
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) =>
-                  //             BargainOrderPage(product: widget.product),
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
+
+                  RaisedButton(
+                    child: Text('Cancel Request'),
+                    onPressed: () => _cancelBargainOrder(_orderId),
+                  ),
                 ],
               ),
               SizedBox(height: 20.0),
@@ -146,6 +117,33 @@ class _BargainPageState extends State<BargainPage> {
     } catch (e) {
       return Text('Something went wrong');
       //report error
+    }
+  }
+  void _cancelBargainOrder(String _id) async {
+    try {
+     
+          await FirebaseFirestore.instance.collection('allBargainOrder').
+          document(_id).delete();
+      print(_id);
+      //add data to sub collection
+      await FirebaseFirestore.instance
+          .collection('customer')
+          .doc("XVd5BdS8kOMFbLLFgy2H13CPLir2")
+          .collection('myBargainOrder')
+          .doc(_id)
+          .delete();
+      //return true;
+      //Navigator.popUntil(context, (route) => false);
+      Navigator.pushNamed(context, '/mybargainorderpage');
+    } catch (e) {
+      print(e.toString());
+      Text(
+        'Submission failed',
+        style: TextStyle(
+          color: Colors.red,
+        ),
+      );
+      //return false;
     }
   }
 }

@@ -22,7 +22,7 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
   double _BBP;
   String _thumbnail;
   String _shortDescription;
-  List _images = List();
+
   //String _
   String _city = 'Mumbai';
   String _area = 'Ghatkopar';
@@ -39,8 +39,7 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
     _BBP = widget.product.data()['BBP'];
     _thumbnail = widget.product.data()['thumbnail'];
     _shortDescription = widget.product.data()['shortDescription'];
-    _images = widget.product.data()['images'];
-
+   
     return Scaffold(
       appBar: AppBar(
         title: Text('Negotiate Price'),
@@ -262,7 +261,6 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
           'BBP': _BBP,
           'thumbnail': _thumbnail,
           'shortDescription': _shortDescription,
-          'images': _images,
           'userId': "XVd5BdS8kOMFbLLFgy2H13CPLir2",
           'city': _city,
           'area': _area,
@@ -290,7 +288,6 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
           'BBP': _BBP,
           'thumbnail': _thumbnail,
           'shortDescription': _shortDescription,
-          'images': _images,
           'city': _city,
           'area': _area,
           'subArea': _subArea,
