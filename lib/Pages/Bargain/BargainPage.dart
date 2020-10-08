@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:negoc8r_customer/Pages/Bargain/BargainOrderPage.dart';
+import 'package:negoc8r_customer/Pages/Bargain/UpdBargainOrderPage.dart';
 
 class BargainPage extends StatefulWidget {
   final DocumentSnapshot order;
@@ -30,6 +31,7 @@ class _BargainPageState extends State<BargainPage> {
     String _shortDesc = widget.order.data()['shortDescription'];
     String _orderId = widget.order.id;
     String _bargainPrice = widget.order.data()['bargainPrice'].toString();
+    DateTime _validTill = widget.order.data()['validTill'].toDate();
   
     try {
       return Scaffold(
@@ -54,10 +56,10 @@ class _BargainPageState extends State<BargainPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Image.network(_thumbnail, width:200, height:150),
+                    Image.network(_thumbnail, width:150, height:150),
                   
                     Text(
-                      'MRP: $_MRP \n Best Buy: $_BBP \n Requested Price: $_bargainPrice',
+                      'Valid till:$_validTill\nMRP: $_MRP \nBest Buy: $_BBP \nRequested Price: $_bargainPrice',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -74,7 +76,7 @@ class _BargainPageState extends State<BargainPage> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      'Location set:\n' + '$city > $area > $subArea',
+                      'Location set:\n' + '$_city > $_area > $_subArea',
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -97,7 +99,7 @@ class _BargainPageState extends State<BargainPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              BargainOrderPage(product: widget.order),
+                              UpdBargainOrderPage(product: widget.order),
                         ),
                       );
                     },

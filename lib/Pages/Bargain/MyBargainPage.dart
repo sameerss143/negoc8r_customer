@@ -53,7 +53,7 @@ class _MyBargainOrderPageState extends State<MyBargainOrderPage> {
                     trailing: Container(
                       //color: Colors.green[200],
                       child: Text(
-                          'Bargain Price: ' + order.data()['bargainPrice'].toString()
+                          '\n Bargain Price: ' + order.data()['bargainPrice'].toString()
                           // + '\nValid Till: ' +
                           // new DateTime().millisecondsSinceEpoch(
                           //     order.data()['validTill'])),
