@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:negoc8r_customer/Pages/Bargain/BargainPage.dart';
 
 class MyBargainOrderPage extends StatefulWidget {
   MyBargainOrderPage({Key key}) : super(key: key);
@@ -38,30 +39,39 @@ class _MyBargainOrderPageState extends State<MyBargainOrderPage> {
             return ListView(
               children: snapshot.data.docs.map(
                 (DocumentSnapshot order) {
+                  String _thumbnail = order.data()['thumbnail'];
+                  bool _isThumbnailLoaded = _thumbnail?.isNotEmpty ?? false;
+
                   return ListTile(
                     dense: true,
-                    leading: Icon(Icons.phone_android),
+                    leading: SizedBox(
+                      width: 50,
+                      child: _isThumbnailLoaded
+                          ? Image.network(_thumbnail)
+                          : Icon(Icons.network_locked),
+                    ),
                     trailing: Container(
                       //color: Colors.green[200],
                       child: Text(
-                          'Price: ' + order.data()['bargainPrice'].toString()
+                          '\n Bargain Price: ' + order.data()['bargainPrice'].toString()
                           // + '\nValid Till: ' +
                           // new DateTime().millisecondsSinceEpoch(
                           //     order.data()['validTill'])),
                           ),
                     ),
-                    title: Text(
-                      'Order Id: ' + order.id.toString(),
-                    ),
-                    subtitle: Text('Product: ' + order.data()['productName']),
+                    // title: Text(
+                    //   'Order Id: ' + order.id.toString(),
+                    // ),
+                    subtitle: Text(order.data()['productName']),
                     isThreeLine: true,
-                    //onTap: () {},
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => ProductPage(document: product),
-                    //   ),
-                    // );
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BargainPage(order: order),
+                        ),
+                      );
+                    },
                   );
                 },
               ).toList(),
@@ -74,9 +84,9 @@ class _MyBargainOrderPageState extends State<MyBargainOrderPage> {
 
   Stream<QuerySnapshot> _fetchBargainList() {
     try {
-      print(
-        'inside order fetch. uid: ' + _user.uid.toString(),
-      );
+      // print(
+      //   'inside order fetch. uid: ' + _user.uid.toString(),
+      // );
       return FirebaseFirestore.instance
           .collection('customer')
           .doc(_user.uid)

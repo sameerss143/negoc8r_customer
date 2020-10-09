@@ -18,6 +18,10 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
   User _user = FirebaseAuth.instance.currentUser;
   int _dropdownValue = 1;
   String _productName;
+  double _MRP;
+  double _BBP;
+  String _thumbnail;
+  String _shortDescription;
   //String _
   String _city = 'Mumbai';
   String _area = 'Ghatkopar';
@@ -30,6 +34,10 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
   @override
   Widget build(BuildContext context) {
     _productName = widget.product.data()['productName'];
+    _MRP = widget.product.data()['MRP'];
+    _BBP = widget.product.data()['BBP'];
+    _thumbnail = widget.product.data()['thumbnail'];
+    _shortDescription = widget.product.data()['shortDescription'];
 
     return Scaffold(
       appBar: AppBar(
@@ -275,6 +283,10 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
           'productId': widget.product.id,
           'producyName': _productName,
           'userId': _user.uid,
+          'MRP': _MRP,
+          'BBP': _BBP,
+          'thumbnail': _thumbnail,
+          'shortDescription': _shortDescription,
           'city': _city,
           'area': _area,
           'subArea': _subArea,
@@ -297,6 +309,10 @@ class _BargainOrderPageState extends State<BargainOrderPage> {
         {
           'productId': widget.product.id,
           'productName': _productName,
+          'MRP': _MRP,
+          'BBP': _BBP,
+          'thumbnail': _thumbnail,
+          'shortDescription': _shortDescription,
           'city': _city,
           'area': _area,
           'subArea': _subArea,
